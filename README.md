@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # uiy
 
 > A Vue.js project
@@ -19,3 +20,7 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# tobuy
+to buy
+>>>>>>> 18cfe6650c654b5f6f8052711e7eb59b46116358
