@@ -11,7 +11,7 @@
 <script>
 import categories from './Categories'
 export default {
-  name: 'basecat',
+  name: 'basecategory',
   data () {
     return {
         selectedId :0
