@@ -1,10 +1,10 @@
 <template>
  <ul>
-                             <li v-for="x in value">
+                             <li v-for="x in cats">
                             <categories v-bind:isleft="isleft"  class="item" :model="x" v-on:myevent="doSomething">
                             </categories>
                         </li>   
-                                        {{selectedId}}
+                                        {{value}}
                       </ul>
       
 </template>
@@ -14,15 +14,15 @@ export default {
   name: 'basecategory',
   data () {
     return {
-        selectedId :0
+        value :0
       }
   },
     props: {
-        value: {},
         isleft : {
           type: Boolean,
           default: true
-        }
+        },
+        cats:{}
 
       },
   components:{
@@ -30,7 +30,8 @@ export default {
   },
   methods:{
     doSomething: function (id) {
-        this.selectedId = id;
+        this.value = id;
+        this.$emit('update:category', id)
         },
   }
 }

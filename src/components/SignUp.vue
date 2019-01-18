@@ -15,6 +15,7 @@
         </div>
             <button type="button"  class="btn btn-primary" v-on:click="addUser">Kaydol</button>
         </div>
+        <h6>{{errorMessage}} </h6>
  </form>
 </template>
 
@@ -23,7 +24,17 @@ export default {
 
     data: function () {
         return {
-        newUser :{userName:"", email : "",password:""}
+        newUser :{userName:"", email : "",password:""},
+        errorMessage :''
+
+        }
+    },
+    watch:{
+        newUser: {
+            handler(newOne,oldOne){
+            this.errorMessage = '';
+        },
+        deep:true
         }
     },
     name: 'signup',
@@ -31,10 +42,21 @@ export default {
         addUser: function () {
             this.$axios
       .post('/User/',this.newUser)
-      .then(response => {
-          this.$store.commit('auth_success', response.data);
+      .then(response => { 
+        console.log(response);
+        this.$store.commit('auth_success', response.data);
+        this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
       })
-            console.log(this.newUser);
+      .catch(error => {
+          switch(error.response.status)
+          {
+              case 409:
+                this.errorMessage = 'bu kullanici zaten mevcut';
+
+          }
+      })
+    
+        
         },
     }
 }

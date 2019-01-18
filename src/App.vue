@@ -20,7 +20,7 @@
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">     
    
-                      <basecategory v-model = "cats"/>
+                      <basecategory v-bind:cats = "cats"/>
                       
                 </div>
             </nav>
@@ -30,7 +30,6 @@
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <router-view/>
           </main>
-    
 </div>
 
   </div>
@@ -42,16 +41,12 @@ export default {
   name: 'App',
     data () {
     return {
-        page:1,
-        items: [{name : "x"},{name:"y"},{name:"z"}],
-        cats : [{name : "initializing"}],
-        searchQuery: '',
         searchText :'',
-        addn : false,
       }
   },
    components:{
     basecategory,
+
   },
   computed:{
     isLoggedIn(){
@@ -59,49 +54,36 @@ export default {
     },
     name(){
        return  this.$store.getters.name
+    },
+    cats(){
+             return  this.$store.getters.categories
     }
   },
   methods:{
-       getX(page =1,category = 0 )
-        {
-          fetch(`http://localhost:63419/api/X/SearchX?Page=${page}&CategoryId=${category}`)
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            this.items = data;
-          });
-        },
-        checkEnter()
-        {
-          if(this.searchText==="")
-            return;
-          this.$root.$emit('change');
-          fetch(`http://localhost:63419/api/X/DeepSearch?Page=${this.page}&Text=${this.searchText}`)
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            this.items = data;
-          });
-        },
+       checkEnter()
+       {
+             this.$root.$emit('search',this.searchText);
+       },
         signOut()
         {
            this.$store.commit('logout');
-        }
+        },
   },
     created :function()
        {
-          this.$root.$on('change', (id) => {
-          console.log(this.addn);
-          this.$set(this, 'addn', true);
-          this.getX(1,id);
-          });
+
         fetch('http://localhost:63419/api/Categories/1')
         .then((res) => res.json())
         .then((data) => {
           console.log(data.children);
-          this.cats = data.children;
+          this.$store.commit('setcats', data.children);
         });
-        this.getX(this.page);
+         this.$root.$emit('change',1);
+         var token = localStorage.getItem('token');
+         if(token != '')
+         {
+         this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+         }
   }
 }
 </script>

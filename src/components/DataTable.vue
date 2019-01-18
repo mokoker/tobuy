@@ -65,9 +65,14 @@ export default {
           this.sortOrders[key] = this.sortOrders[key] * -1
         },
         getWidth: function (key) {
-          var  gridWidths= ['15','50','10','10','5','10'];
+          var  gridWidths= ['15','48','10','10','7','10'];
           return gridWidths[key]+'%';
         }
+      },
+    created :function()
+       {
+
+            this.$root.$emit('change',1);
       }
 }
 </script>

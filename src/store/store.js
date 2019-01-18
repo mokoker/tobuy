@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
 
     state: {
+        cats : [{name : "initializing"}],
         status: '',
         token: localStorage.getItem('token') || '',
         user : localStorage.getItem('user') || {}
@@ -31,6 +32,9 @@ export const store = new Vuex.Store({
           localStorage.setItem('token','')
           localStorage.setItem('user','')
         },
+        setcats(state,categories){
+            state.cats = categories;
+        }
       },
       actions: {
     
@@ -38,7 +42,8 @@ export const store = new Vuex.Store({
       getters : {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
-        name:state => state.user
+        name:state => state.user,
+        categories:state=>state.cats
       }
 
 })

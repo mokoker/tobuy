@@ -1,83 +1,70 @@
 <template>
-<div>
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> 
-                    <div class="container-fluid">        
-                        <datatable v-show="addn"
-                                    :data="items"
-                                    :columns="gridColumns">
-                                  </datatable>        
-                          <newitem  v-show="!addn" v-bind:categories = "cats" >
-                            
-                           </newitem>            
-                    </div>
-                </div>   
-                  <button type="button" v-on:click="addn = !addn">Click Me!</button>
-            </div>
+<div> 
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> 
+    <div class="container-fluid">     
+      <megatable/>
+                     
+    </div>
+  </div>   
+  <button type="button"  class="btn btn-primary" v-on:click="newPost">Ilan Gonder</button>
+</div>
 </template>
 
 <script>
-import categories from './Categories'
 import datatable from './DataTable'
 import newitem from './NewItem'
-import basecategory from './BaseCategory'
+import megatable from './MegaTable'
 export default {
   name: 'Main',
   data () {
     return {
         page:1,
         items: [{name : "x"},{name:"y"},{name:"z"}],
-        cats : [{name : "initializing"}],
-        searchQuery: '',
-        searchText :'',
-        addn : false,
         gridColumns: [ 'title','message','posterName','cityName','price','postDate'],
-
       }
   },
   components:{
-    categories,
-    basecategory,
     datatable,
-    newitem
+    newitem,
+    megatable
   },
   methods :{
        getX(page =1,category = 0 )
         {
+           this.$router.push('/');
           fetch(`http://localhost:63419/api/X/SearchX?Page=${page}&CategoryId=${category}`)
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            console.log('getx'+category);
             this.items = data;
           });
         },
-        checkEnter()
+        search(searchText)
         {
-          if(this.searchText==="")
+          if(searchText==="")
             return;
-          this.$root.$emit('change');
+          this.$router.push('/');
           fetch(`http://localhost:63419/api/X/DeepSearch?Page=${this.page}&Text=${this.searchText}`)
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
             this.items = data;
           });
-        }
+        },
+        newPost()
+        {
+          this.$router.push('new');
+        },
   },
-    created :function()
+      created :function()
        {
           this.$root.$on('change', (id) => {
-          console.log(this.addn);
-          this.$set(this, 'addn', true);
-          this.getX(1,id);
+            this.getX(1,id);
           });
-        fetch('http://localhost:63419/api/Categories/1')
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.children);
-          this.cats = data.children;
-        });
-        this.getX(this.page);
-  }
+           this.$root.$on('search', (searchText) => {
+            this.search(searchText);
+          });
+       }
 }
 </script>
 

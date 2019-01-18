@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Main from '@/components/Main'
 import signin from '@/components/Signin'
 import signup from '@/components/Signup'
+import newitem from '@/components/NewItem'
 Vue.use(Router)
 
 export default new Router({
@@ -22,6 +23,10 @@ export default new Router({
       name: 'Signup',
       component: signup
     },
-
+    {
+      path: '/new',
+      name: 'NewItem',
+      component: newitem
+    },
   ]
 })

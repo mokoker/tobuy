@@ -27,13 +27,9 @@ import Vue from 'vue'
           default: true
         },
         selectedId :{}
-
-
-
       },
       created() {
         this.$root.$on('selected', (id) => {
-          console.log('selected')
           this.selected =false;
         });
       },
@@ -66,11 +62,9 @@ import Vue from 'vue'
         getAds(id) {
           this.$root.$emit('selected',id);
           this.selected = true;
-           this.$emit('myevent',id)
+          this.$emit('myevent',id)
           if(this.isleft)
           {
-             console.log(this.$root);
-            console.log('emitted');
             this.$root.$emit('change',id);
           }
         },
