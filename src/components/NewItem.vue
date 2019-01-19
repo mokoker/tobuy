@@ -1,67 +1,105 @@
 <template>
-   <form> 
-    <div class="col-sm-6 mx-auto">
+  <div>
+    <div v-if="isLoggedIn" class="col-sm-6 mx-auto">
       <div class="form-group">
-          <label for="exampleInputEmail1">Kategori</label>
-          <basecategory  v-bind:value="itemToAdd.categoryId" v-on:update:category="updateSelected" v-bind:cats = "cats" v-bind:isleft="false"/>
+        <label for="exampleInputEmail1">Kategori</label>
+        <basecategory
+          v-bind:value="itemToAdd.categoryId"
+          v-on:update:category="updateSelected"
+          v-bind:cats="cats"
+          v-bind:isleft="false"
+        />
       </div>
-            
+
       <div class="form-group">
         <label for="inputBaslik">Ilan Basligi</label>
-        <input  class="form-control" id="inputBaslik" v-model="itemToAdd.title"  aria-describedby="baslikHelp" placeholder="Ilan Basligi">
-        <!-- <small id="baslikHelp" class="form-text text-muted">Ilan Basligi Ne Olsun</small> -->
+        <input
+          class="form-control"
+          id="inputBaslik"
+          v-model="itemToAdd.title"
+          aria-describedby="baslikHelp"
+          placeholder="Ilan Basligi"
+        >
       </div>
       <div class="form-group">
         <label for="inputMetin">Ilan Metni</label>
-        <textarea  class="form-control" id="inputMetin" v-model="itemToAdd.message"  cols="40" rows="5"  placeholder="Ilan Metni"></textarea>
+        <textarea
+          class="form-control"
+          id="inputMetin"
+          v-model="itemToAdd.message"
+          cols="40"
+          rows="5"
+          placeholder="Ilan Metni"
+        ></textarea>
       </div>
-        <button type="button"  class="btn btn-danger" v-on:click="cancel">Vazgec</button>
-        <button type="button" class="btn btn-primary" v-on:click="addItem">Ekle</button>
+      <button type="button" class="btn btn-danger" v-on:click="cancel">Vazgec</button>
+      <button type="button" class="btn btn-primary" v-on:click="addItem">Ekle</button>
+      <div v-show="this.errorMessage != ''" class="alert alert-danger" role="alert">{{errorMessage}}</div>
     </div>
- </form>
+    <div v-else>
+      <div class="alert alert-info" role="alert">Yeni ilan gonderebilmek icin lutfen giris yapiniz.</div>
+      <button type="button" class="btn-sm btn-info" v-on:click="routeToLogin">Giris Yap</button>
+    </div>
+  </div>
 </template>
 <script>
-import basecategory from './BaseCategory'
+import basecategory from "./BaseCategory";
 export default {
-  name: 'newitem',
+  name: "newitem",
   props: {
     value: [Object],
-    isleft : {
+    isleft: {
       type: Boolean,
       default: true
     }
   },
-  computed:{
-    cats(){
-      return  this.$store.getters.categories
+  computed: {
+    cats() {
+      return this.$store.getters.categories;
+    },
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
     }
   },
-  components:{
-    basecategory,
+  components: {
+    basecategory
   },
-  data: function () {
+  data: function() {
     return {
-      itemToAdd :{title : "",message:"",categoryId:0},
-    }
+      errorMessage: "",
+      itemToAdd: { title: "", message: "", categoryId: 0 }
+    };
   },
   methods: {
-    addItem: function () {
+    routeToLogin:function(){
+      this.$router.push("/signin");
+    },
+    addItem: function() {
       console.log(this.itemToAdd);
       this.$axios
-      .post('/X',this.itemToAdd)
-      .then(response => {
-      console.log(response);
-      this.$router.push('/');
-      })
+        .post("/X", this.itemToAdd)
+        .then(response => {
+          console.log(response);
+          this.$router.push("/");
+        })
+        .catch(error => {
+          switch (error.response.status) {
+            case 401:
+              this.errorMessage = "lutfen giris yapiniz";
+          }
+        });
     },
-    cancel:function(){
-      this.$router.push('/');
+    cancel: function() {
+      this.$router.push("/");
     },
-    updateSelected:function(id){
+    updateSelected: function(id) {
       this.itemToAdd.categoryId = id;
     }
   }
-}
-
-
+};
 </script>
+<style>
+.alert {
+  margin-top: 20px;
+}
+</style>

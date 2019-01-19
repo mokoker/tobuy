@@ -7,8 +7,7 @@ import newitem from '@/components/NewItem'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Megatable',
       component: Megatable

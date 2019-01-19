@@ -1,165 +1,132 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <span class="navbar-brand  d-none d-md-block  col-sm-3 col-md-2 mr-0" v-on:click="reset" to="/">karasayfa.com</span>
-        <filter-bar></filter-bar> 
-        <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search"  v-model="searchText" v-on:keyup.enter="checkEnter()" aria-label="Search"> -->
-      <div id="navigation" class=" col-lg-1 col-md-2 text-nowrap">
-        <ul class="navbar-nav">
-            <li class="nav-item" v-show="!isLoggedIn">
-              <router-link class="navbar-login text-white" to="signin">Sign In</router-link>
-              <router-link class="navbar-login text-white" to="signup">Sign Up</router-link>
-            </li>
-        </ul>
-         <a class="text-white" v-show="isLoggedIn"  v-on:click="signOut()">Cikis yap {{name}} </a>
-      </div>
-    </nav>
+    <filter-bar></filter-bar>
+    <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search"  v-model="searchText" v-on:keyup.enter="checkEnter()" aria-label="Search"> -->
     <div class="container-fluid">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">  
-                      <basecategory v-bind:cats = "cats"/>     
-                </div>
-            </nav>
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <basecategory v-bind:cats="cats"/>
+        </div>
+      </nav>
     </div>
-        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
-          <router-view/>
-        </main>
-      <downfoot/>
-    </div>
-    
+    <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+      <router-view/>
+    </main>
+    <downfoot/>
+  </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import VueEvents from 'vue-events'
-import basecategory from './components/BaseCategory'
-import FilterBar from './components/FilterBar'
-import downfoot from './components/DownFoot'
+import Vue from "vue";
+import VueEvents from "vue-events";
+import basecategory from "./components/BaseCategory";
+import FilterBar from "./components/FilterBar";
+import downfoot from "./components/DownFoot";
 
-Vue.use(VueEvents)
+Vue.use(VueEvents);
 export default {
-  name: 'App',
-    data () {
-    return {
-        searchText :'',
-      }
+  name: "App",
+  data() {
+    return {};
   },
-   components:{
+  components: {
     basecategory,
     FilterBar,
     downfoot
-
   },
-  computed:{
-    isLoggedIn(){
-      return  this.$store.getters.isLoggedIn
-    },
-    name(){
-       return  this.$store.getters.name
-    },
-    cats(){
-      return  this.$store.getters.categories
+  computed: {
+    cats() {
+      return this.$store.getters.categories;
     }
   },
-  methods:{
-      reset()
-      {
-       this.$events.fire('category-set', 3);
-      },
-      checkEnter()
-      {
-        this.$root.$emit('search',this.searchText);
-      },
-      signOut()
-      {
-        this.$store.commit('logout');
-      },
-  },
-    created :function()
-       {
-
-        fetch('http://localhost:63419/api/Categories/1')
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.children);
-          this.$store.commit('setcats', data.children);
-        });
-         this.$root.$emit('change',1);
-         var token = localStorage.getItem('token');
-         if(token != '')
-         {
-         this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-         }
+  methods: {},
+  created: function() {
+    fetch("http://localhost:63419/api/Categories/1")
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.children);
+        this.$store.commit("setcats", data.children);
+      });
+    this.$root.$emit("change", 1);
+    var token = localStorage.getItem("token");
+    if (token != "") {
+      this.$axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+    }
   }
-}
+};
 </script>
 
 <style>
- /*
+/*
    * Sidebar
    */
-  
-  .sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100; /* Behind the navbar */
-    padding: 48px 0 0; /* Height of navbar */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-  }
-  
-  .sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  }
-  
-  @supports ((position: -webkit-sticky) or (position: sticky)) {
-    .sidebar-sticky {
-      position: -webkit-sticky;
-      position: sticky;
-    }
-  }
-  
-  .sidebar .nav-link {
-    color: #333;
-  }
-  
-  .sidebar .nav-link .feather {
-    margin-right: 4px;
-    color: #999;
-  }
-  
-  .sidebar .nav-link.active {
-    color: #007bff;
-  }
-  
-  .sidebar .nav-link:hover .feather,
-  .sidebar .nav-link.active .feather {
-    color: inherit;
-  }
-  
-  .sidebar-heading {
-    font-size: .75rem;
-    text-transform: uppercase;
-  }
-  .navbar-login{
-    color:white;
-  }
-a { color: white; }
 
-a:hover {
- cursor:pointer;
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
-a+a { border-left: 1px solid #999 ;padding-left: 2px }
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.sidebar .nav-link {
+  color: #333;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 4px;
+  color: #999;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+.navbar-login {
+  color: white;
+}
+a {
+  color: white;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+a + a {
+  border-left: 1px solid #999;
+  padding-left: 2px;
+}
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -168,15 +135,12 @@ a+a { border-left: 1px solid #999 ;padding-left: 2px }
 }
 
 body {
-    font-size: .875rem;
-  }
-  
-  .feather {
-    width: 16px;
-    height: 16px;
-    vertical-align: text-bottom;
-  }
+  font-size: 0.875rem;
+}
 
-
-
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
 </style>
