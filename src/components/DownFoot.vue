@@ -25,17 +25,13 @@ export default {
   /*
    * Footer
    */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  margin-bottom: 60px; /* Margin bottom by footer height */
-}
+
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+ position: absolute;
+   width: 100%;
+   bottom: 0px;
+   left: 0px;
   height: 35px; /* Set the fixed height of the footer here */
   line-height: 35px; /* Vertically center the text there */
   background-color: #f5f5f5;

@@ -1,15 +1,14 @@
 <template>
-  <div id="app">
+  <div id="main" class="container-fluid">
     <filter-bar></filter-bar>
-    <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search"  v-model="searchText" v-on:keyup.enter="checkEnter()" aria-label="Search"> -->
-    <div class="container-fluid">
+    <div >
       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
           <basecategory v-bind:cats="cats"/>
         </div>
       </nav>
     </div>
-    <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+    <main role="main"  id= "routerContainer" class="col-md-10 ml-sm-auto col-lg-10 px-4">
       <router-view/>
     </main>
     <downfoot/>
@@ -66,7 +65,7 @@ export default {
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 100; /* Behind the navbar */
+  z-index: 0; /* Behind the navbar */
   padding: 48px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
@@ -125,7 +124,7 @@ a + a {
   padding-left: 2px;
 }
 
-#app {
+#main {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -136,6 +135,14 @@ a + a {
 
 body {
   font-size: 0.875rem;
+  margin-bottom: 60px; 
+}
+#routerContainer{
+  padding: 20px
+}
+html {
+  position: relative;
+  min-height: 100%;
 }
 
 .feather {
