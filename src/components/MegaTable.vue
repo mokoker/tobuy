@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div  class="table-responsive-xl">
         <vuetable ref="vuetable"
              detail-row-component="my-detail-row"   
            
             api-url="http://localhost:63419/api/X/SearchX"
-            :fields="[ 'id','title','message','posterName','cityName','price','postDate']"
+            :fields="['title','posterName','cityName','price','postDate']"
             pagination-path=""
             :per-page="20"
             @vuetable:pagination-data="onPaginationData"
@@ -93,3 +93,8 @@ export default {
     }
 }
 </script>
+
+<style>
+
+
+</style>
