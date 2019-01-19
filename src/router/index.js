@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Main from '@/components/Main'
+import Megatable from '@/components/Megatable'
 import signin from '@/components/Signin'
 import signup from '@/components/Signup'
 import newitem from '@/components/NewItem'
@@ -10,8 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Main',
-      component: Main
+      name: 'Megatable',
+      component: Megatable
     },
     {
       path: '/signin',

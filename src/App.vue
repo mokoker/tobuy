@@ -1,42 +1,42 @@
 <template>
   <div id="app">
-    <div class="ad">
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <router-link class="navbar-brand  d-none d-md-block  col-sm-3 col-md-2 mr-0" to="/">karasayfa.com</router-link>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search"  v-model="searchText" v-on:keyup.enter="checkEnter()" aria-label="Search">
+      <span class="navbar-brand  d-none d-md-block  col-sm-3 col-md-2 mr-0" v-on:click="reset" to="/">karasayfa.com</span>
+        <filter-bar></filter-bar> 
+        <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search"  v-model="searchText" v-on:keyup.enter="checkEnter()" aria-label="Search"> -->
       <div id="navigation" class=" col-lg-1 col-md-2 text-nowrap">
         <ul class="navbar-nav">
             <li class="nav-item" v-show="!isLoggedIn">
               <router-link class="navbar-login text-white" to="signin">Sign In</router-link>
               <router-link class="navbar-login text-white" to="signup">Sign Up</router-link>
             </li>
-             
         </ul>
          <a class="text-white" v-show="isLoggedIn"  v-on:click="signOut()">Cikis yap {{name}} </a>
-         </div>
+      </div>
     </nav>
     <div class="container-fluid">
-        <div class="row">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">     
-   
-                      <basecategory v-bind:cats = "cats"/>
-                      
+                <div class="sidebar-sticky">  
+                      <basecategory v-bind:cats = "cats"/>     
                 </div>
             </nav>
-   
-        </div>
     </div>
-          <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
-        <router-view/>
-          </main>
-</div>
-
-  </div>
+        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+          <router-view/>
+        </main>
+      <downfoot/>
+    </div>
+    
 </template>
 
 <script>
+import Vue from 'vue'
+import VueEvents from 'vue-events'
 import basecategory from './components/BaseCategory'
+import FilterBar from './components/FilterBar'
+import downfoot from './components/DownFoot'
+
+Vue.use(VueEvents)
 export default {
   name: 'App',
     data () {
@@ -46,6 +46,8 @@ export default {
   },
    components:{
     basecategory,
+    FilterBar,
+    downfoot
 
   },
   computed:{
@@ -56,18 +58,22 @@ export default {
        return  this.$store.getters.name
     },
     cats(){
-             return  this.$store.getters.categories
+      return  this.$store.getters.categories
     }
   },
   methods:{
-       checkEnter()
-       {
-             this.$root.$emit('search',this.searchText);
-       },
-        signOut()
-        {
-           this.$store.commit('logout');
-        },
+      reset()
+      {
+       this.$events.fire('category-set', 3);
+      },
+      checkEnter()
+      {
+        this.$root.$emit('search',this.searchText);
+      },
+      signOut()
+      {
+        this.$store.commit('logout');
+      },
   },
     created :function()
        {
@@ -158,6 +164,19 @@ a+a { border-left: 1px solid #999 ;padding-left: 2px }
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 3rem;
 }
+
+body {
+    font-size: .875rem;
+  }
+  
+  .feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+  }
+
+
+
 </style>

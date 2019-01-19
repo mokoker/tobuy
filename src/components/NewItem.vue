@@ -23,49 +23,44 @@
 <script>
 import basecategory from './BaseCategory'
 export default {
-
-      props: {
-        value: [Object],
-        isleft : {
-          type: Boolean,
-          default: true
-        }
-
-      },
-      computed:{
-            cats(){
-             return  this.$store.getters.categories
+  name: 'newitem',
+  props: {
+    value: [Object],
+    isleft : {
+      type: Boolean,
+      default: true
     }
-        },
-    name: 'newitem',
-    components:{
+  },
+  computed:{
+    cats(){
+      return  this.$store.getters.categories
+    }
+  },
+  components:{
     basecategory,
-   },
-         data: function () {
-        return {
-        itemToAdd :{title : "",message:"",categoryId:0},
-
-        }
-      },
-   methods: {
-        addItem: function () {
-            console.log(this.itemToAdd);
-            this.$axios
-            .post('/X',this.itemToAdd)
-            .then(response => {
-              console.log(response);
-              this.$router.push('/');
+  },
+  data: function () {
+    return {
+      itemToAdd :{title : "",message:"",categoryId:0},
+    }
+  },
+  methods: {
+    addItem: function () {
+      console.log(this.itemToAdd);
+      this.$axios
+      .post('/X',this.itemToAdd)
+      .then(response => {
+      console.log(response);
+      this.$router.push('/');
       })
-        },
-        cancel:function(){
-          this.$router.push('/');
-        },
-        updateSelected:function(id){
-          this.itemToAdd.categoryId = id;
-        }
-      
-     }
-
+    },
+    cancel:function(){
+      this.$router.push('/');
+    },
+    updateSelected:function(id){
+      this.itemToAdd.categoryId = id;
+    }
+  }
 }
 
 

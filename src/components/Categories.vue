@@ -17,7 +17,6 @@
     </li>
 </template>
 <script>
-import Vue from 'vue'
   export default {
     name: 'categories',
    props: {
@@ -65,7 +64,7 @@ import Vue from 'vue'
           this.$emit('myevent',id)
           if(this.isleft)
           {
-            this.$root.$emit('change',id);
+            this.$events.fire('category-set', id)
           }
         },
       }

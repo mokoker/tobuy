@@ -1,6 +1,6 @@
 <template>
-    <div  class="table-responsive-xl">
-        <vuetable ref="vuetable"
+    <div >
+        <vuetable id="tableContainer" ref="vuetable"
              detail-row-component="my-detail-row"   
            
             api-url="http://localhost:63419/api/X/SearchX"
@@ -8,7 +8,8 @@
             pagination-path=""
             :per-page="20"
             @vuetable:pagination-data="onPaginationData"
-             @vuetable:row-clicked="onCellClicked"  
+            @vuetable:row-clicked="onCellClicked" 
+            :append-params="moreParams" 
         ></vuetable>
         <vuetablePagination ref="pagination" 
             :css="css.pagination"
@@ -54,6 +55,7 @@ export default {
         sortOrder: [
         { field: 'message', direction: 'asc' }
         ],
+        moreParams: {},
         css: {
         table: {
             tableClass: 'table table-striped table-bordered table-hovered',
@@ -79,12 +81,26 @@ export default {
         }
         }
     },
+    mounted() {
+        this.$events.$on('filter-set', eventData => this.onFilterSet(eventData))
+        this.$events.$on('category-set', e => this.onCategorySet(e))
+    },
     methods:{
         onPaginationData (paginationData) {
             this.$refs.pagination.setPaginationData(paginationData)
         },
         onChangePage (page) {
             this.$refs.vuetable.changePage(page)
+        },
+        onFilterSet (filterText) {
+            console.log('filter-set', filterText)
+            this.moreParams = {'filter': filterText};
+            Vue.nextTick( () => this.$refs.vuetable.refresh())
+        },
+        onCategorySet (category) {
+            console.log('category-set', category)
+            this.moreParams = {'categoryId': category};
+            Vue.nextTick( () => this.$refs.vuetable.refresh())
         },
         onCellClicked (data) {
             console.log(data.id)
@@ -95,6 +111,11 @@ export default {
 </script>
 
 <style>
-
+.table td{
+ padding: 0.3rem
+}
+#tableContainer{
+     text-align: left;
+}
 
 </style>
