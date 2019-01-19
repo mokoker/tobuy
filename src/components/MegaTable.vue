@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div v-show="loading" class="overlay flex flex-column items-center justify-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
     <vuetable
       id="tableContainer"
       ref="vuetable"
@@ -7,16 +12,19 @@
       api-url="http://localhost:63419/api/X/SearchX"
       :fields="fields"
       pagination-path
+      :css="css.table"
       :per-page="20"
       @vuetable:pagination-data="onPaginationData"
       @vuetable:row-clicked="onCellClicked"
+      @vuetable:loading="onLoading"
+      @vuetable:loaded="onLoaded"
       :append-params="moreParams"
     ></vuetable>
-    <vuetablePagination
+    <vuetable-pagination
       ref="pagination"
       :css="css.pagination"
       @vuetable-pagination:change-page="onChangePage"
-    ></vuetablePagination>
+    ></vuetable-pagination>
   </div>
 </template>
 
@@ -32,19 +40,24 @@ export default {
   name: "megatable",
   components: {
     Vuetable,
-    VuetablePagination
+    "vuetable-pagination": VuetablePagination,
+    VuetablePaginationInfo
   },
   data: function() {
     return {
+      loading: true,
       fields: [
-         {
+        {
           name: "title",
           title: "Baslik"
-        },,
+        },
+        ,
         {
           name: "posterName",
-          title: "Kullanici adi"
-        },,
+          title:
+            '<span class="orange glyphicon glyphicon-user"></span> Kullanici adi'
+        },
+        ,
         {
           name: "cityName",
           title: "Sehir"
@@ -74,7 +87,7 @@ export default {
         pagination: {
           infoClass: "pull-left",
           wrapperClass: "vuetable-pagination pull-right",
-          activeClass: "btn-primary",
+          activeClass: "active large",
           disabledClass: "disabled",
           pageClass: "btn btn-border",
           linkClass: "btn btn-border",
@@ -115,16 +128,50 @@ export default {
     },
     onCellClicked(data) {
       this.$refs.vuetable.toggleDetailRow(data.data.id);
+    },
+    onLoading() {
+      this.loading = true;
+      console.log("loading... show your spinner here");
+    },
+    onLoaded() {
+      this.loading = false;
+      console.log("loaded! .. hide your spinner here");
     }
   }
 };
 </script>
 
 <style>
+.orange.glyphicon {
+  color: orange;
+}
+
 .table td {
   padding: 0.3rem;
 }
 #tableContainer {
   text-align: left;
 }
+	.overlay { 
+        border-radius: 5px;
+		position: absolute; 
+		top: 0; left: 0; 
+		/* bottom: 0%; right: 0%; */
+		width: 100%; height: 100%; 
+		z-index: 10; 
+		background-color: rgba(0,0,0,0.3);
+		/*dim the background*/ 
+	}
+	.flex {
+		display: flex;
+	}
+	.flex-column {
+		flex-direction: column;
+	}
+	.items-center {
+		align-items: center;
+	}
+	.justify-center {
+		justify-content: center;
+	}
 </style>
