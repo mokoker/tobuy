@@ -15,8 +15,8 @@
     <div id="navigation" class="col-lg-1 col-md-2 text-nowrap">
       <ul class="navbar-nav">
         <li class="nav-item" v-show="!isLoggedIn">
-          <router-link class="navbar-login text-white" to="signin">Sign In</router-link>
-          <router-link class="navbar-login text-white" to="signup">Sign Up</router-link>
+          <router-link class="navbar-login text-white" to="signin">Giris </router-link>
+          <router-link class="navbar-login text-white" to="signup">Uye Ol</router-link>
         </li>
       </ul>
       <a class="text-white" v-show="isLoggedIn" v-on:click="signOut()">Cikis yap {{name}}</a>

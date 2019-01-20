@@ -4,6 +4,7 @@ import Megatable from '@/components/Megatable'
 import signin from '@/components/Signin'
 import signup from '@/components/Signup'
 import newitem from '@/components/NewItem'
+import messages from '@/components/Messages'
 Vue.use(Router)
 
 export default new Router({
@@ -26,6 +27,11 @@ export default new Router({
       path: '/new',
       name: 'NewItem',
       component: newitem
+    },
+    {
+      path: '/messages',
+      name: 'Messages',
+      component: messages
     },
   ]
 })

@@ -5,7 +5,7 @@
         <label>Ilan Basligi:</label>
         <span>{{rowData.title}}</span>
       </div>
-      <div  class="inline field">
+      <div class="inline field">
         <label>Ilan Detayi:</label>
         <span class="breaker">{{rowData.message}}</span>
       </div>
@@ -26,12 +26,15 @@
       <div class="inline field">
         <label>Nickname:</label>
         <span>{{rowData.posterName}}</span>
+        <button type="button" class="btn-xs btn-primary" v-on:click="sendMessageVisible =!sendMessageVisible">MesajGonder</button>
       </div>
+      <newmessage  v-bind:receivername="rowData.posterName" v-bind:receiverid="rowData.posterId" v-show="this.sendMessageVisible"/>
     </div>
   </div>
 </template>
 
   <script>
+import newmessage from "./NewMessage";
 export default {
   props: {
     rowData: {
@@ -42,19 +45,27 @@ export default {
       type: Number
     }
   },
+   components: {
+    newmessage
+  },
+  data: function() {
+    return {
+      sendMessageVisible :false,
+    };
+  },
   methods: {
     onClick(event) {
-      console.log("my-detail-row: on-click", event.target);
+      console.log(this.rowData);
     }
   }
 };
 </script>
 <style scoped>
-label{
+label {
   font-weight: bold;
 }
 
 .breaker {
-     word-break:break-all;
- }
+  word-break: break-all;
+}
 </style>

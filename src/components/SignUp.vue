@@ -3,6 +3,7 @@
     <div class="form-group">
       <label for="inputName">Kullanici Adi</label>
       <input
+        name="fullname"
         class="form-control"
         id="inputName"
         v-model="newUser.userName"
@@ -11,13 +12,21 @@
     </div>
     <div class="form-group">
       <label for="inputEmail">Email</label>
-      <input class="form-control" id="inputEmail" v-model="newUser.email" placeholder="Email">
+      <input
+        class="form-control"
+        type="email"
+        id="inputEmail"
+        name="email"
+        v-model="newUser.email"
+        placeholder="Email"
+      >
     </div>
     <div class="form-group">
       <label for="input">Password</label>
       <input
         class="form-control"
         id="inputPassword"
+        type="password"
         v-model="newUser.password"
         placeholder="Password"
       >
@@ -53,6 +62,7 @@ export default {
           this.$store.commit("auth_success", response.data);
           this.$axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.token;
+          this.$router.push("/");
         })
         .catch(error => {
           switch (error.response.status) {
