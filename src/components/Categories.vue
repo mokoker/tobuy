@@ -67,6 +67,7 @@ export default {
       this.selected = true;
       this.$emit("myevent", id);
       if (this.isleft) {
+        this.$router.push("/");
         this.$events.fire("category-set", id);
       }
     }

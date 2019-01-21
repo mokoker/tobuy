@@ -26,9 +26,18 @@
       <div class="inline field">
         <label>Nickname:</label>
         <span>{{rowData.posterName}}</span>
-        <button type="button" class="btn-xs btn-primary" v-on:click="sendMessageVisible =!sendMessageVisible">MesajGonder</button>
+        <button
+          type="button"
+          class="btn-xs btn-primary"
+          v-show="this.isLoggedIn()"
+          v-on:click="sendMessageVisible =!sendMessageVisible"
+        >MesajGonder</button>
       </div>
-      <newmessage  v-bind:receivername="rowData.posterName" v-bind:receiverid="rowData.posterId" v-show="this.sendMessageVisible"/>
+      <newmessage
+        v-bind:receivername="rowData.posterName"
+        v-bind:receiverid="rowData.posterId"
+        v-show="this.sendMessageVisible"
+      />
     </div>
   </div>
 </template>
@@ -36,6 +45,7 @@
   <script>
 import newmessage from "./NewMessage";
 export default {
+  name: "detailrow",
   props: {
     rowData: {
       type: Object,
@@ -45,17 +55,21 @@ export default {
       type: Number
     }
   },
-   components: {
+  components: {
     newmessage
   },
   data: function() {
     return {
-      sendMessageVisible :false,
+      sendMessageVisible: false
     };
   },
   methods: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
     onClick(event) {
-      console.log(this.rowData);
+      console.log(this.isLoggedIn());
+
     }
   }
 };

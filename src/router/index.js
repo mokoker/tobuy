@@ -5,6 +5,7 @@ import signin from '@/components/Signin'
 import signup from '@/components/Signup'
 import newitem from '@/components/NewItem'
 import messages from '@/components/Messages'
+import detail from '@/components/Detail'
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +33,12 @@ export default new Router({
       path: '/messages',
       name: 'Messages',
       component: messages
+    },
+    {
+      path: '/detail',
+      name: 'Detail',
+      component: detail,
+      props :(route) =>({id:parseInt(route.query.id)})
     },
   ]
 })

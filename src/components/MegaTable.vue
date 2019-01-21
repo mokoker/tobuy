@@ -122,6 +122,7 @@ export default {
       Vue.nextTick(() => this.$refs.vuetable.refresh());
     },
     onCategorySet(category) {
+      this.$router.push("/");
       console.log("category-set", category);
       this.moreParams = { categoryId: category };
       Vue.nextTick(() => this.$refs.vuetable.refresh());
@@ -150,26 +151,28 @@ export default {
 #tableContainer {
   text-align: left;
 }
-	.overlay { 
-        border-radius: 5px;
-		position: absolute; 
-		top: 0; left: 0; 
-		/* bottom: 0%; right: 0%; */
-		width: 100%; height: 100%; 
-		z-index: 10; 
-		background-color: rgba(0,0,0,0.03);
-		/*dim the background*/ 
-	}
-	.flex {
-		display: flex;
-	}
-	.flex-column {
-		flex-direction: column;
-	}
-	.items-center {
-		align-items: center;
-	}
-	.justify-center {
-		justify-content: center;
-	}
+.overlay {
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* bottom: 0%; right: 0%; */
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.03);
+  /*dim the background*/
+}
+.flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
 </style>
