@@ -35,7 +35,7 @@ export default new Router({
       component: messages
     },
     {
-      path: '/detail',
+      path: '/d',
       name: 'Detail',
       component: detail,
       props :(route) =>({id:parseInt(route.query.id)})

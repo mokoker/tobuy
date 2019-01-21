@@ -24,6 +24,10 @@
         <span>{{rowData.postDate}}</span>
       </div>
       <div class="inline field">
+        <label>Ilan Url:</label>
+        <a v-bind:href="getDetailUrl()">{{getDetailUrl()}}</a>
+      </div>
+      <div class="inline field">
         <label>Nickname:</label>
         <span>{{rowData.posterName}}</span>
         <button
@@ -44,15 +48,13 @@
 
   <script>
 import newmessage from "./NewMessage";
+import Vue from "vue";
 export default {
   name: "detailrow",
   props: {
     rowData: {
       type: Object,
       required: true
-    },
-    rowIndex: {
-      type: Number
     }
   },
   components: {
@@ -67,9 +69,9 @@ export default {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },
-    onClick(event) {
-      console.log(this.isLoggedIn());
-
+    onClick(event) {},
+    getDetailUrl() {
+      return Vue.store.baseUrl + "/#/d?id=" + this.rowData.id;
     }
   }
 };
@@ -81,5 +83,13 @@ label {
 
 .breaker {
   word-break: break-all;
+}
+
+a {
+  color: blue;
+}
+
+a:hover {
+  cursor: pointer;
 }
 </style>

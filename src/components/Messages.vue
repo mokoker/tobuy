@@ -1,7 +1,9 @@
   <template>
   <div>
     <label>{{name}} icin gelen mesajlar</label>
-    <li v-for="item in messages">{{item.sender}} => {{item.receiver}} => {{formatDate(item.sentDate)}} => {{ item.text }}</li>
+    <li
+      v-for="item in messages"
+    >{{item.sender}} => {{item.receiver}} => {{formatDate(item.sentDate)}} => {{ item.text }}</li>
   </div>
 </template>
 

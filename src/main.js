@@ -17,6 +17,7 @@ const axiosConfig = {
   };
   
 Vue.prototype.$axios = axios.create(axiosConfig)
+Vue.store= Vue.prototype.store = {baseUrl : 'http://localhost:8080' };
 
 /* eslint-disable no-new */
 new Vue({
