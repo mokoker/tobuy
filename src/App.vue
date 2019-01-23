@@ -73,8 +73,7 @@ export default {
 .sidebar-sticky {
   position: relative;
   top: 0;
-  height: calc(100vh - 48px);
-  padding-top: 0.5rem;
+  padding-top: 0.2rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }

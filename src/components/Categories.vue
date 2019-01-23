@@ -66,10 +66,6 @@ export default {
       this.$root.$emit("selected", id); // so that others can become onselected
       this.selected = true;
       this.$emit("myevent", id);
-      if (this.isleft) {
-        this.$router.push("/");
-        this.$events.fire("category-set", id);
-      }
     }
   }
 };

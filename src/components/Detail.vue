@@ -21,7 +21,7 @@ export default {
     return {
       value: {},
       errorMessage: "",
-      itemToAdd: { title: "", message: "", categoryId: 0 }
+      itemToAdd: { title: "", message: "", categoryId: 0}
     };
   },
   created: function() {

@@ -67,7 +67,7 @@ export default {
   data: function() {
     return {
       errorMessage: "",
-      itemToAdd: { title: "", message: "", categoryId: 0 }
+      itemToAdd: { title: "", message: "", categoryId: 0,toSell:false }
     };
   },
   methods: {
@@ -92,8 +92,10 @@ export default {
     cancel: function() {
       this.$router.push("/");
     },
-    updateSelected: function(id) {
-      this.itemToAdd.categoryId = id;
+    updateSelected: function(e) {
+      console.log(e);
+      this.itemToAdd.categoryId = e.id;
+      this.itemToAdd.toSell = e.tosell;
     }
   }
 };

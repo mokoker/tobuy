@@ -121,10 +121,9 @@ export default {
       this.moreParams = { filter: filterText };
       Vue.nextTick(() => this.$refs.vuetable.refresh());
     },
-    onCategorySet(category) {
-      this.$router.push("/");
-      console.log("category-set", category);
-      this.moreParams = { categoryId: category };
+    onCategorySet(e) {
+      console.log("category-sext", e);
+      this.moreParams = { categoryId: e.id, tosell:e.tosell  };
       Vue.nextTick(() => this.$refs.vuetable.refresh());
     },
     onCellClicked(data) {
