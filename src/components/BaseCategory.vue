@@ -59,7 +59,6 @@ export default {
       console.log(this.value);
       this.$emit("update:category", {id:this.value,tosell:this.tosell});
       if (this.isleft) {
-        this.$router.push("/");
         console.log("fired");
         this.$events.fire("category-set", {id:this.value,tosell:this.tosell});
       }

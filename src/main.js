@@ -5,9 +5,18 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import { store } from './store/store'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faKeyboard } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 require('jquery');
 require('bootstrap');
 require('bootstrap/dist/css/bootstrap.css');
+library.add(faCoffee)
+library.add(faMinusCircle)
+library.add(faKeyboard)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 

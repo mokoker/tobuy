@@ -17,7 +17,6 @@
           class="form-control"
           id="inputBaslik"
           v-model="itemToAdd.title"
-          aria-describedby="baslikHelp"
           placeholder="Ilan Basligi"
         >
       </div>
@@ -32,6 +31,16 @@
           placeholder="Ilan Metni"
         ></textarea>
       </div>
+      <div class="form-group">
+        <label for="inputBaslik">Fiyat</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">TL</span>
+          </div>
+          <input type="number"   v-model="itemToAdd.price" class="form-control" placeholder="Urun Fiyati">
+        </div>
+      </div>
+
       <button type="button" class="btn btn-danger" v-on:click="cancel">Vazgec</button>
       <button type="button" class="btn btn-primary" v-on:click="addItem">Ekle</button>
       <div v-show="this.errorMessage != ''" class="alert alert-danger" role="alert">{{errorMessage}}</div>
@@ -67,11 +76,17 @@ export default {
   data: function() {
     return {
       errorMessage: "",
-      itemToAdd: { title: "", message: "", categoryId: 0,toSell:false }
+      itemToAdd: {
+        title: "",
+        message: "",
+        categoryId: 0,
+        toSell: false,
+        price: 0
+      }
     };
   },
   methods: {
-    routeToLogin:function(){
+    routeToLogin: function() {
       this.$router.push("/signin");
     },
     addItem: function() {

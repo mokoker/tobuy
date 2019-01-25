@@ -19,6 +19,12 @@
         v-show="!isLoggedIn"
         v-on:click="login"
       >Giris Yap</button>
+      <button
+        type="button"
+        class="btn-sm btn-info"
+        v-show="isLoggedIn"
+        v-on:click="myposts"
+      >Ilanlarim</button>
     </div>
   </footer>
 </template>
@@ -34,6 +40,9 @@ export default {
     },
     mymessages() {
       this.$router.push("messages");
+    },
+    myposts() {
+      this.$router.push("my");
     }
   },
   computed: {

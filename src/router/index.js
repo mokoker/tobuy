@@ -5,7 +5,10 @@ import signin from '@/components/Signin'
 import signup from '@/components/Signup'
 import newitem from '@/components/NewItem'
 import messages from '@/components/Messages'
+import myposts from '@/components/MyPosts'
 import detail from '@/components/Detail'
+import 'font-awesome/css/font-awesome.css';
+import 'bootstrap';
 Vue.use(Router)
 
 export default new Router({
@@ -33,6 +36,11 @@ export default new Router({
       path: '/messages',
       name: 'Messages',
       component: messages
+    },
+    {
+      path: '/my',
+      name: 'myposts',
+      component: myposts,
     },
     {
       path: '/d',

@@ -12,14 +12,24 @@
       api-url="http://localhost:63419/api/X/SearchX"
       :fields="fields"
       pagination-path
+      :http-options="httpOptions"
       :css="css.table"
       :per-page="20"
       @vuetable:pagination-data="onPaginationData"
-      @vuetable:row-clicked="onCellClicked"
+      @vuetable:cell-clicked="onCellClicked"
       @vuetable:loading="onLoading"
       @vuetable:loaded="onLoaded"
       :append-params="moreParams"
-    ></vuetable>
+    >
+      <div  slot="gender-slot" slot-scope="props">
+        <!-- <button class="ui basic button" @click="itemAction('view-item', rowData, rowIndex)">
+       <font-awesome-icon icon="coffee" />
+        </button> -->
+        <button  @click="itemAction('delete-item', props.rowData, props.rowIndex)" data-toggle="tooltip" data-placement="right" title="Ilani kapat">
+           <font-awesome-icon icon="minus-circle" />
+        </button>
+      </div>
+    </vuetable>
     <vuetable-pagination
       ref="pagination"
       :css="css.pagination"
@@ -43,8 +53,21 @@ export default {
     "vuetable-pagination": VuetablePagination,
     VuetablePaginationInfo
   },
+  props: {
+    mymessages: false,
+     query: {
+      type: String,
+      default: ''
+    }
+  },
   data: function() {
     return {
+      pageEverLoaded: false,
+      httpOptions: {
+        headers: {
+          Authorization: this.$axios.defaults.headers.common["Authorization"]
+        }
+      },
       loading: true,
       fields: [
         {
@@ -72,6 +95,14 @@ export default {
           formatter(value) {
             return moment(String(value)).format("hh:mm DD/MM/YY");
           }
+        },
+        {
+            visible: this.mymessages,
+          name: "gender-slot",
+          title:  'Islem',
+          titleClass: "center aligned",
+          dataClass: "center aligned",
+          width: "8em"
         }
       ],
       sortOrder: [{ field: "postdate", direction: "desc" }],
@@ -105,6 +136,15 @@ export default {
     this.$events.$on("filter-set", eventData => this.onFilterSet(eventData));
     this.$events.$on("category-set", e => this.onCategorySet(e));
   },
+  watch: {
+    mymessages: {
+      immediate: true,
+      // watch it
+      handler(val, oldVal) {
+        this.moreParams = { mymessages: this.mymessages };
+      }
+    }
+  },
   methods: {
     formatDate(value) {
       console.log(value);
@@ -119,21 +159,31 @@ export default {
     onFilterSet(filterText) {
       console.log("filter-set", filterText);
       this.moreParams = { filter: filterText };
+      //this.$refs.vuetable.refresh();
       Vue.nextTick(() => this.$refs.vuetable.refresh());
     },
     onCategorySet(e) {
       console.log("category-sext", e);
-      this.moreParams = { categoryId: e.id, tosell:e.tosell  };
+      this.moreParams = { categoryId: e.id, tosell: e.tosell };
+      // this.$refs.vuetable.refresh();
       Vue.nextTick(() => this.$refs.vuetable.refresh());
     },
     onCellClicked(data) {
       this.$refs.vuetable.toggleDetailRow(data.data.id);
     },
     onLoading() {
+      console.log("loading");
       this.loading = true;
     },
     onLoaded() {
       this.loading = false;
+    },
+    itemAction(operation, rowData, rowIndex){
+      switch(operation){
+        case 'delete-item':
+          console.log(rowData)
+        break;
+      }
     }
   }
 };
@@ -173,5 +223,11 @@ export default {
 }
 .justify-center {
   justify-content: center;
+}
+.custom-actions button.ui.button {
+  padding: 8px 8px;
+}
+.custom-actions button.ui.button > i.icon {
+  margin: auto !important;
 }
 </style>
