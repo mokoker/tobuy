@@ -14,8 +14,10 @@ Vue.use(Router)
 export default new Router({
   routes: [{
       path: '/',
+      alias:'/m',
       name: 'Megatable',
-      component: Megatable
+      component: Megatable,
+      props :(route) =>({search:route.query.s})
     },
     {
       path: '/signin',

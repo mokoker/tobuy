@@ -10,8 +10,8 @@
         aria-expanded="false"
       >{{buysell}}</button>
       <div class="dropdown-menu btn-xs" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item btn-xs" v-on:click="tosell = false;toSellChanged();" href="#">alinik</a>
-        <a class="dropdown-item btn-xs" v-on:click="tosell = true ;toSellChanged();" href="#">satilik</a>
+        <a class="dropdown-item btn-xs" v-on:click="tosell = false;toSellChanged();">alinik</a>
+        <a class="dropdown-item btn-xs" v-on:click="tosell = true ;toSellChanged();">satilik</a>
       </div>
     </div>
     <ul id="categories">
@@ -56,11 +56,29 @@ export default {
       this.toSellChanged();
     },
     toSellChanged: function() {
-      console.log(this.value);
-      this.$emit("update:category", {id:this.value,tosell:this.tosell});
+      this.$emit("update:category", { id: this.value, tosell: this.tosell });
       if (this.isleft) {
-        console.log("fired");
-        this.$events.fire("category-set", {id:this.value,tosell:this.tosell});
+        var initial = "";
+        var strs = [];
+        if (true) {
+          strs.push("toSell-" + this.tosell);
+        }
+        if (this.value != 0) {
+          strs.push("categoryId-" + this.value);
+        }
+
+        if (strs.length > 0) {
+          initial = "/?s=";
+        }
+        console.log(strs);
+        strs.forEach(function(value, i) {
+          initial = initial + value;
+          if (i != strs.length - 1) initial = initial + ",";
+        });
+
+        this.$router.push(initial);
+
+        // this.$events.fire("category-set", {id:this.value,tosell:this.tosell});
       }
     }
   }

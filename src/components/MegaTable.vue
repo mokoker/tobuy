@@ -21,12 +21,17 @@
       @vuetable:loaded="onLoaded"
       :append-params="moreParams"
     >
-      <div  slot="gender-slot" slot-scope="props">
+      <div slot="gender-slot" slot-scope="props">
         <!-- <button class="ui basic button" @click="itemAction('view-item', rowData, rowIndex)">
        <font-awesome-icon icon="coffee" />
-        </button> -->
-        <button  @click="itemAction('delete-item', props.rowData, props.rowIndex)" data-toggle="tooltip" data-placement="right" title="Ilani kapat">
-           <font-awesome-icon icon="minus-circle" />
+        </button>-->
+        <button
+          @click="itemAction('delete-item', props.rowData, props.rowIndex)"
+          data-toggle="tooltip"
+          data-placement="right"
+          title="Ilani kapat"
+        >
+          <font-awesome-icon icon="minus-circle"/>
         </button>
       </div>
     </vuetable>
@@ -44,6 +49,7 @@ import Vue from "vue";
 import Vuetable from "vuetable-2";
 import { VuetablePagination, VuetablePaginationInfo } from "vuetable-2";
 import DetailRow from "./DetailRow";
+
 Vue.component("my-detail-row", DetailRow);
 
 export default {
@@ -55,9 +61,9 @@ export default {
   },
   props: {
     mymessages: false,
-     query: {
+    search: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   data: function() {
@@ -97,9 +103,9 @@ export default {
           }
         },
         {
-            visible: this.mymessages,
+          visible: this.mymessages,
           name: "gender-slot",
-          title:  'Islem',
+          title: "Islem",
           titleClass: "center aligned",
           dataClass: "center aligned",
           width: "8em"
@@ -133,8 +139,8 @@ export default {
     };
   },
   mounted() {
-    this.$events.$on("filter-set", eventData => this.onFilterSet(eventData));
-    this.$events.$on("category-set", e => this.onCategorySet(e));
+    // this.$events.$on("filter-set", eventData => this.onFilterSet(eventData));
+    // this.$events.$on("category-set", e => this.onCategorySet(e));
   },
   watch: {
     mymessages: {
@@ -142,6 +148,21 @@ export default {
       // watch it
       handler(val, oldVal) {
         this.moreParams = { mymessages: this.mymessages };
+      }
+    },
+    search: {
+      immediate: true,
+      handler(val, oldVal) {
+        if (this.mymessages) return;
+        var words = val.split(",");
+        var objo = {};
+        words.forEach(function(element) {
+          var objec = element.split("-");
+          objo[objec[0]] = objec[1];
+        });
+        console.log(objo);
+        this.moreParams = objo;
+        Vue.nextTick(() => this.$refs.vuetable.refresh());
       }
     }
   },
@@ -156,18 +177,18 @@ export default {
     onChangePage(page) {
       this.$refs.vuetable.changePage(page);
     },
-    onFilterSet(filterText) {
-      console.log("filter-set", filterText);
-      this.moreParams = { filter: filterText };
-      //this.$refs.vuetable.refresh();
-      Vue.nextTick(() => this.$refs.vuetable.refresh());
-    },
-    onCategorySet(e) {
-      console.log("category-sext", e);
-      this.moreParams = { categoryId: e.id, tosell: e.tosell };
-      // this.$refs.vuetable.refresh();
-      Vue.nextTick(() => this.$refs.vuetable.refresh());
-    },
+    // onFilterSet(filterText) {
+    //   console.log("filter-set", filterText);
+    //   this.moreParams = { filter: filterText };
+    //   //this.$refs.vuetable.refresh();
+    //   Vue.nextTick(() => this.$refs.vuetable.refresh());
+    // },
+    // onCategorySet(e) {
+    //   console.log("category-sext", e);
+    //   this.moreParams = { categoryId: e.id, tosell: e.tosell };
+    //   // this.$refs.vuetable.refresh();
+    //   Vue.nextTick(() => this.$refs.vuetable.refresh());
+    // },
     onCellClicked(data) {
       this.$refs.vuetable.toggleDetailRow(data.data.id);
     },
@@ -178,11 +199,20 @@ export default {
     onLoaded() {
       this.loading = false;
     },
-    itemAction(operation, rowData, rowIndex){
-      switch(operation){
-        case 'delete-item':
-          console.log(rowData)
-        break;
+    itemAction(operation, rowData, rowIndex) {
+      switch (operation) {
+        case "delete-item":
+          console.log(rowData);
+          this.$axios.delete("/X/" + rowData.id).then(response => {
+            console.log("notifiy");
+            this.$notify({
+              group: "foo",
+              title: "Silindi",
+              text: "Ilaniniz silindi!"
+            });
+          });
+
+          break;
       }
     }
   }

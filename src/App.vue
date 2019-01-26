@@ -12,6 +12,7 @@
       <router-view/>
     </main>
     <downfoot/>
+    <notifications  position="bottom left" group="foo" />
   </div>
 </template>
 

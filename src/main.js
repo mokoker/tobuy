@@ -10,6 +10,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { faKeyboard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Notifications from 'vue-notification'
 require('jquery');
 require('bootstrap');
 require('bootstrap/dist/css/bootstrap.css');
@@ -19,7 +20,7 @@ library.add(faKeyboard)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
-
+Vue.use(Notifications)
 const axiosConfig = {
   baseURL: 'http://localhost:63419/api',
   timeout: 30000,

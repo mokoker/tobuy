@@ -50,7 +50,8 @@ export default {
     },
     doFilter() {
       console.log("doFilter:", this.filterText);
-      this.$events.fire("filter-set", this.filterText);
+      this.$router.push("/?s=filter-"+this.filterText);
+      // this.$events.fire("filter-set", this.filterText);
     }
   }
 };
