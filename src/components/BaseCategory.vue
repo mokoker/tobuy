@@ -52,31 +52,21 @@ export default {
   },
   methods: {
     doSomething: function(id) {
+      this.$emit("update:category", { id: this.value, tosell: this.tosell });
+      console.log(this.$root);
       this.value = id;
-      this.toSellChanged();
+      if (this.isleft) {
+        if (this.value != 0) {
+          this.$root.strs["categoryId"] = this.value;
+        }
+        this.$root.routeme();
+      }
     },
     toSellChanged: function() {
       this.$emit("update:category", { id: this.value, tosell: this.tosell });
       if (this.isleft) {
-        var initial = "";
-        var strs = [];
-        if (true) {
-          strs.push("toSell-" + this.tosell);
-        }
-        if (this.value != 0) {
-          strs.push("categoryId-" + this.value);
-        }
-
-        if (strs.length > 0) {
-          initial = "/?s=";
-        }
-        console.log(strs);
-        strs.forEach(function(value, i) {
-          initial = initial + value;
-          if (i != strs.length - 1) initial = initial + ",";
-        });
-
-        this.$router.push(initial);
+        this.$root.strs["toSell"] = this.tosell;
+        this.$root.routeme();
 
         // this.$events.fire("category-set", {id:this.value,tosell:this.tosell});
       }

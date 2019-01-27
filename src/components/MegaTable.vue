@@ -202,16 +202,14 @@ export default {
     itemAction(operation, rowData, rowIndex) {
       switch (operation) {
         case "delete-item":
-          console.log(rowData);
           this.$axios.delete("/X/" + rowData.id).then(response => {
-            console.log("notifiy");
             this.$notify({
               group: "foo",
               title: "Silindi",
               text: "Ilaniniz silindi!"
             });
+             this.$refs.vuetable.refresh()
           });
-
           break;
       }
     }

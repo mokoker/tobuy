@@ -37,7 +37,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text">TL</span>
           </div>
-          <input type="number"   v-model="itemToAdd.price" class="form-control" placeholder="Urun Fiyati">
+          <input type="number" v-model="itemToAdd.price" class="form-control" placeholder="Urun Fiyati">
         </div>
       </div>
 
@@ -95,7 +95,12 @@ export default {
         .post("/X", this.itemToAdd)
         .then(response => {
           console.log(response);
-          this.$router.push("/");
+           this.$notify({
+            group: "foo",
+            title: "Gonderildi",
+            text: "Ilaniniz gonderildi"
+          });
+          this.$root.clearpath();
         })
         .catch(error => {
           switch (error.response.status) {

@@ -48,6 +48,12 @@ export default {
       this.$axios
         .post("/Message", this.itemtoadd)
         .then(response => {
+          this.$emit("messageSent");
+          this.$notify({
+            group: "foo",
+            title: "Gonderildi",
+            text: "Mesajiniz gonderildi"
+          });
           console.log(response);
         })
         .catch(error => {

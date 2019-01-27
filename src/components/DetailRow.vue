@@ -41,6 +41,7 @@
         v-bind:receivername="rowData.posterName"
         v-bind:receiverid="rowData.posterId"
         v-show="this.sendMessageVisible"
+        v-on:messageSent="this.messageSent"
       />
     </div>
   </div>
@@ -72,7 +73,11 @@ export default {
     onClick(event) {},
     getDetailUrl() {
       return Vue.store.baseUrl + "/#/d?id=" + this.rowData.id;
+    },
+    messageSent(){
+      this.sendMessageVisible= false;
     }
+
   }
 };
 </script>

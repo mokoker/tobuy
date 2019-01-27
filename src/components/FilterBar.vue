@@ -15,7 +15,7 @@
     <div id="navigation" class="col-lg-1 col-md-2 text-nowrap">
       <ul class="navbar-nav">
         <li class="nav-item" v-show="!isLoggedIn">
-          <router-link class="navbar-login text-white" to="signin">Giris </router-link>
+          <router-link class="navbar-login text-white" to="signin">Giris</router-link>
           <router-link class="navbar-login text-white" to="signup">Uye Ol</router-link>
         </li>
       </ul>
@@ -49,9 +49,11 @@ export default {
       this.$router.push("/");
     },
     doFilter() {
-      console.log("doFilter:", this.filterText);
-      this.$router.push("/?s=filter-"+this.filterText);
-      // this.$events.fire("filter-set", this.filterText);
+      this.$root.strs["filter"] = this.filterText;
+      this.$root.routeme();
+      // console.log("doFilter:", this.filterText);
+      // this.$router.push("/?s=filter-"+this.filterText);
+      // // this.$events.fire("filter-set", this.filterText);
     }
   }
 };
