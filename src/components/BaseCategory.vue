@@ -54,12 +54,27 @@ export default {
     this.$events.$on("filters-cleared", eventData =>
       this.onFiltersCleared(eventData)
     );
+    this.$events.$on("search-query-updated", eventData =>
+      this.onQueryUpdated(eventData)
+    );
   },
   methods: {
+    onQueryUpdated(data) {
+      console.log(data);
+      if (data["categoryId"]) {
+        this.value = data["categoryId"];
+        this.$root.strs["categoryId"] = this.value;
+        this.$root.$emit("selected", this.value);
+      }
+      if (data["toSell"]) {
+        this.tosell = true;
+        this.$root.strs["toSell"] = this.tosell;
+      }
+    },
     onFiltersCleared(eventData) {
       this.tosell = false;
       this.value = 0;
-       this.$root.$emit("selected", this.value);
+      this.$root.$emit("selected", this.value);
     },
     doSomething: function(id) {
       this.$emit("update:category", { id: this.value, tosell: this.tosell });

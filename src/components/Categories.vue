@@ -1,9 +1,9 @@
 <template>
   <li class="nav-item">
     <div :class="{bold: isFolder,selected: isSelected}">
-     
       <a class="nav-link" v-on:click="getAds(model.id)">
-        <i v-show="isSelected" class="arrow right"></i>  {{ model.name }} 
+        <i v-show="isSelected" class="arrow right"></i>
+        {{ model.name }}
         <span @click="toggle" v-if="isFolder">[{{ open ? '-' : '+' }}]</span>
       </a>
     </div>
@@ -14,6 +14,7 @@
         :key="index"
         :isleft="isleft"
         v-on:myevent="doSomething"
+        v-on:parentOpen="openx"
         :model="model"
       ></categories>
     </ul>
@@ -32,7 +33,8 @@ export default {
   },
   created() {
     this.$root.$on("selected", id => {
-      this.selected = false;
+      this.$emit("parentOpen");
+       this.selected = id == this.model.id;
     });
   },
   data: function() {
@@ -53,13 +55,18 @@ export default {
     }
   },
   methods: {
+    openx: function() {
+      console.log("open");
+      if (this.isFolder) {
+        this.open = true;
+      }
+    },
     toggle: function() {
       if (this.isFolder) {
         this.open = !this.open;
       }
     },
     doSomething: function(id) {
-      console.log("child");
       this.$emit("myevent", id);
     },
     getAds(id) {

@@ -43,10 +43,18 @@ export default {
     this.$events.$on("filters-cleared", eventData =>
       this.onFiltersCleared(eventData)
     );
+    this.$events.$on("search-query-updated", eventData =>
+      this.onQueryUpdated(eventData)
+    );
   },
   methods: {
+    onQueryUpdated(data) {
+      if (data["filter"]) {
+        this.filterText = data["filter"];
+        this.$root.strs["filter"] = this.filterText;
+      }
+    },
     reset() {
-      console.log("1");
       this.$events.fire("filters-cleared");
     },
     onFiltersCleared(eventData) {

@@ -154,15 +154,14 @@ export default {
       immediate: true,
       handler(val, oldVal) {
         if (this.mymessages) return;
-        console.log(val);
         var words = val.split("_");
         var objo = {};
         words.forEach(function(element) {
           var objec = element.split("-");
           objo[objec[0]] = objec[1];
         });
-        console.log(objo);
         this.moreParams = objo;
+       
         Vue.nextTick(() => this.$refs.vuetable.refresh());
       }
     }
@@ -198,6 +197,7 @@ export default {
       this.loading = true;
     },
     onLoaded() {
+       this.$events.fire("search-query-updated",  this.moreParams);
       this.loading = false;
     },
     itemAction(operation, rowData, rowIndex) {

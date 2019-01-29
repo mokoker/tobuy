@@ -122,17 +122,27 @@ export default {
     this.$events.$on("filters-cleared", eventData =>
       this.onFiltersCleared(eventData)
     );
+    this.$events.$on("search-query-updated", eventData =>
+      this.onQueryUpdated(eventData)
+    );
   },
   methods: {
+    onQueryUpdated(data) {
+      if (data["cities"] && this.isleft) {
+        this.value = [];
+        data["cities"]
+          .split(",")
+          .forEach(x => this.value.push(this.options.find(a => a.id == x)));
+        this.$root.strs["cities"] = data["cities"];
+      }
+    },
     onFiltersCleared(eventData) {
-      console.log("2");
       this.value = "";
     },
     Closed() {
       if (this.isleft && this.value.length > 0) {
         var selectedCities = [];
         this.value.forEach(x => selectedCities.push(x.id));
-        console.log(selectedCities);
         this.$root.strs["cities"] = selectedCities;
         this.$root.routeme();
       }
