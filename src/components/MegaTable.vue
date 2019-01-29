@@ -154,7 +154,8 @@ export default {
       immediate: true,
       handler(val, oldVal) {
         if (this.mymessages) return;
-        var words = val.split(",");
+        console.log(val);
+        var words = val.split("_");
         var objo = {};
         words.forEach(function(element) {
           var objec = element.split("-");
@@ -208,7 +209,7 @@ export default {
               title: "Silindi",
               text: "Ilaniniz silindi!"
             });
-             this.$refs.vuetable.refresh()
+            this.$refs.vuetable.refresh();
           });
           break;
       }

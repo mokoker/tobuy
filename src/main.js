@@ -54,7 +54,7 @@ const myMixin = {
         console.log('not empy');
         initial = "/?s=";
       }
-      console.log(initial);
+      console.log(this.strs);
       var length = Object.keys(this.strs).length
       var count = 0;
       for (var key in this.strs) {
@@ -63,7 +63,7 @@ const myMixin = {
         if (vali == false)
           continue;
         initial = initial + key + '-' + vali;
-        if (length > count) initial = initial + ",";
+        if (length > count) initial = initial + "_";
       }
       this.$router.push(initial);
     },

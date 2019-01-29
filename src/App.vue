@@ -1,18 +1,19 @@
 <template>
   <div id="main" class="container-fluid">
     <filter-bar></filter-bar>
-    <div >
+    <div>
       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
           <basecategory v-bind:cats="cats"/>
+          <cities/>
         </div>
       </nav>
     </div>
-    <main role="main"  id= "routerContainer" class="col-md-10 ml-sm-auto col-lg-10 px-4">
+    <main role="main" id="routerContainer" class="col-md-10 ml-sm-auto col-lg-10 px-4">
       <router-view/>
     </main>
     <downfoot/>
-    <notifications  position="bottom left" group="foo" />
+    <notifications position="bottom left" group="foo"/>
   </div>
 </template>
 
@@ -22,7 +23,7 @@ import VueEvents from "vue-events";
 import basecategory from "./components/BaseCategory";
 import FilterBar from "./components/FilterBar";
 import downfoot from "./components/DownFoot";
-
+import cities from "./components/Cities";
 Vue.use(VueEvents);
 export default {
   name: "App",
@@ -32,14 +33,25 @@ export default {
   components: {
     basecategory,
     FilterBar,
-    downfoot
+    downfoot,
+    cities
   },
   computed: {
     cats() {
       return this.$store.getters.categories;
     }
   },
-  methods: {},
+  mounted() {
+    this.$events.$on("filters-cleared", eventData =>
+      this.OnFiltersCleared(eventData)
+    );
+  },
+  methods: {
+    OnFiltersCleared(eventData) {
+      console.log("app filter clearing");
+      this.$root.clearpath();
+    }
+  },
   created: function() {
     fetch("http://localhost:63419/api/Categories/1")
       .then(res => res.json())
@@ -74,6 +86,7 @@ export default {
 .sidebar-sticky {
   position: relative;
   top: 0;
+  height: 100%;
   padding-top: 0.2rem;
   overflow-x: hidden;
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
@@ -135,10 +148,10 @@ a + a {
 
 body {
   font-size: 0.875rem;
-  margin-bottom: 60px; 
+  margin-bottom: 60px;
 }
-#routerContainer{
-  padding: 20px
+#routerContainer {
+  padding: 20px;
 }
 html {
   position: relative;

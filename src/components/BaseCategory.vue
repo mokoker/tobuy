@@ -50,7 +50,17 @@ export default {
   components: {
     categories
   },
+  mounted() {
+    this.$events.$on("filters-cleared", eventData =>
+      this.onFiltersCleared(eventData)
+    );
+  },
   methods: {
+    onFiltersCleared(eventData) {
+      this.tosell = false;
+      this.value = 0;
+       this.$root.$emit("selected", this.value);
+    },
     doSomething: function(id) {
       this.$emit("update:category", { id: this.value, tosell: this.tosell });
       console.log(this.$root);

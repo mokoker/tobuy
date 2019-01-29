@@ -1,10 +1,10 @@
   <template>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <router-link
-      class="navbar-brand d-none d-md-block col-sm-3 col-md-2 mr-0"
-      v-on:click.native="reset"
+    <a
+      class="text-white navbar-brand d-none d-md-block col-sm-3 col-md-2 mr-0"
+      v-on:click="reset()"
       to="/"
-    >karasayfa.com</router-link>
+    >karasayfa.com</a>
     <input
       class="form-control form-control-dark w-100"
       type="text"
@@ -39,9 +39,18 @@ export default {
       return this.$store.getters.name;
     }
   },
+  mounted() {
+    this.$events.$on("filters-cleared", eventData =>
+      this.onFiltersCleared(eventData)
+    );
+  },
   methods: {
     reset() {
-      this.$events.fire("category-set", 1);
+      console.log("1");
+      this.$events.fire("filters-cleared");
+    },
+    onFiltersCleared(eventData) {
+      this.filterText = "";
     },
     signOut() {
       this.$store.commit("logout");
