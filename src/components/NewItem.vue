@@ -4,11 +4,13 @@
       <div class="form-group">
         <label for="exampleInputEmail1">Kategori</label>
         <basecategory
-          v-bind:value="itemToAdd.categoryId"
           v-on:update:category="updateSelected"
           v-bind:cats="cats"
           v-bind:isleft="false"
         />
+      </div>
+      <div class="form-group">
+        <cities v-on:update:city="updateCity" v-bind:multiple="false"/>
       </div>
 
       <div class="form-group">
@@ -37,7 +39,12 @@
           <div class="input-group-prepend">
             <span class="input-group-text">TL</span>
           </div>
-          <input type="number" v-model="itemToAdd.price" class="form-control" placeholder="Urun Fiyati">
+          <input
+            type="number"
+            v-model="itemToAdd.price"
+            class="form-control"
+            placeholder="Urun Fiyati"
+          >
         </div>
       </div>
 
@@ -53,6 +60,7 @@
 </template>
 <script>
 import basecategory from "./BaseCategory";
+import cities from "./Cities";
 export default {
   name: "newitem",
   props: {
@@ -71,6 +79,7 @@ export default {
     }
   },
   components: {
+    cities,
     basecategory
   },
   data: function() {
@@ -81,11 +90,19 @@ export default {
         message: "",
         categoryId: 0,
         toSell: false,
-        price: 0
+        price: 0,
+        city: 0
       }
     };
   },
   methods: {
+    updateCity: function(data) {
+      console.log(data);
+      if (data) {
+        this.itemToAdd.city = data.id;
+        console.log(this.itemToAdd.city);
+      }
+    },
     routeToLogin: function() {
       this.$router.push("/signin");
     },
@@ -95,7 +112,7 @@ export default {
         .post("/X", this.itemToAdd)
         .then(response => {
           console.log(response);
-           this.$notify({
+          this.$notify({
             group: "foo",
             title: "Gonderildi",
             text: "Ilaniniz gonderildi"

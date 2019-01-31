@@ -4,7 +4,7 @@
     <multiselect
       v-model="value"
       :options="options"
-      :multiple="true"
+      :multiple="multiple"
       :searchable="false"
       :close-on-select="false"
       :show-labels="false"
@@ -116,6 +116,10 @@ export default {
     isleft: {
       type: Boolean,
       default: true
+    },
+    multiple: {
+      type: Boolean,
+      default: true
     }
   },
   mounted() {
@@ -140,6 +144,7 @@ export default {
       this.value = "";
     },
     Closed() {
+      this.$emit("update:city", this.value);
       if (this.isleft && this.value.length > 0) {
         var selectedCities = [];
         this.value.forEach(x => selectedCities.push(x.id));

@@ -68,7 +68,7 @@ export default {
   },
   data: function() {
     return {
-      pageEverLoaded: false,
+      firstload: true,
       httpOptions: {
         headers: {
           Authorization: this.$axios.defaults.headers.common["Authorization"]
@@ -153,6 +153,7 @@ export default {
     search: {
       immediate: true,
       handler(val, oldVal) {
+        console.log(this);
         if (this.mymessages) return;
         var words = val.split("_");
         var objo = {};
@@ -161,8 +162,11 @@ export default {
           objo[objec[0]] = objec[1];
         });
         this.moreParams = objo;
-       
-        Vue.nextTick(() => this.$refs.vuetable.refresh());
+        if (!this.firstload) {
+          Vue.nextTick(() => this.$refs.vuetable.refresh());
+        } else {
+          this.firstload = false;
+        }
       }
     }
   },
@@ -177,18 +181,6 @@ export default {
     onChangePage(page) {
       this.$refs.vuetable.changePage(page);
     },
-    // onFilterSet(filterText) {
-    //   console.log("filter-set", filterText);
-    //   this.moreParams = { filter: filterText };
-    //   //this.$refs.vuetable.refresh();
-    //   Vue.nextTick(() => this.$refs.vuetable.refresh());
-    // },
-    // onCategorySet(e) {
-    //   console.log("category-sext", e);
-    //   this.moreParams = { categoryId: e.id, tosell: e.tosell };
-    //   // this.$refs.vuetable.refresh();
-    //   Vue.nextTick(() => this.$refs.vuetable.refresh());
-    // },
     onCellClicked(data) {
       this.$refs.vuetable.toggleDetailRow(data.data.id);
     },
@@ -197,7 +189,7 @@ export default {
       this.loading = true;
     },
     onLoaded() {
-       this.$events.fire("search-query-updated",  this.moreParams);
+      this.$events.fire("search-query-updated", this.moreParams);
       this.loading = false;
     },
     itemAction(operation, rowData, rowIndex) {

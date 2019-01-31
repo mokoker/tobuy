@@ -18,7 +18,6 @@
       <li v-for="x in cats">
         <categories v-bind:isleft="isleft" class="item" :model="x" v-on:myevent="doSomething"></categories>
       </li>
-      {{value}}
     </ul>
   </div>
 </template>
@@ -77,9 +76,9 @@ export default {
       this.$root.$emit("selected", this.value);
     },
     doSomething: function(id) {
-      this.$emit("update:category", { id: this.value, tosell: this.tosell });
-      console.log(this.$root);
       this.value = id;
+      this.$emit("update:category", { id: this.value, tosell: this.tosell });
+      console.log(this.$root);    
       if (this.isleft) {
         if (this.value != 0) {
           this.$root.strs["categoryId"] = this.value;
@@ -92,8 +91,6 @@ export default {
       if (this.isleft) {
         this.$root.strs["toSell"] = this.tosell;
         this.$root.routeme();
-
-        // this.$events.fire("category-set", {id:this.value,tosell:this.tosell});
       }
     }
   }

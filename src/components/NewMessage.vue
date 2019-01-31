@@ -1,6 +1,6 @@
   <template>
   <div>
-    <label>{{name}} den {{receivername}} ye Yeni Mesaj</label>
+    <label class="bold">{{name}} den {{receivername}} ye yeni mesaj</label>
     <textarea
       class="form-control"
       id="inputMessage"
@@ -54,6 +54,7 @@ export default {
             title: "Gonderildi",
             text: "Mesajiniz gonderildi"
           });
+          this.itemtoadd.text = "";
           console.log(response);
         })
         .catch(error => {
@@ -67,5 +68,9 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
+
+.bold{
+  font-weight: bold;
+}
 </style>

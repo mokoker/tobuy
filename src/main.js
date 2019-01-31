@@ -6,7 +6,7 @@ import router from './router'
 import axios from 'axios'
 import { store } from './store/store'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee, faClock,faMinusCircle,faKeyboard ,faUserCircle, faEnvelope} from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faClock,faMinusCircle,faKeyboard ,faUserCircle, faEnvelope, faReply} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Notifications from 'vue-notification'
 require('jquery');
@@ -17,7 +17,8 @@ library.add(faMinusCircle)
 library.add(faKeyboard)
 library.add(faClock);
 library.add(faEnvelope);
-library.add(faUserCircle)
+library.add(faUserCircle);
+library.add(faReply);
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
@@ -65,6 +66,7 @@ const myMixin = {
         initial = initial + key + '-' + vali;
         if (length > count) initial = initial + "_";
       }
+      console.log('routing');
       this.$router.push(initial);
     },
     clearpath() {
