@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <label class="typo__label">Sehir</label>
+  <div class="leftItem">
     <multiselect
+      class='multisel'
       v-model="value"
       :options="options"
       :multiple="multiple"
@@ -167,4 +167,8 @@ export default {
 };
 </script>
 <style >
+.leftItem{
+  margin:0 1em 3em 1em;
+  
+}
 </style>

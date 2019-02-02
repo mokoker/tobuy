@@ -56,7 +56,6 @@ export default {
     fetch("http://localhost:63419/api/Categories/1")
       .then(res => res.json())
       .then(data => {
-        console.log(data.children);
         this.$store.commit("setcats", data.children);
       });
     this.$root.$emit("change", 1);

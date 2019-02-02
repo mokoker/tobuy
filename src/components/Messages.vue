@@ -16,7 +16,7 @@
     </div>
 
     <template v-for="item in messages">
-      <messagedetail v-bind:item="item"/>
+      <messagedetail v-on:messageDeleted="messageDeleted" v-bind:item="item"/>
     </template>
   </div>
 </template>
@@ -44,6 +44,12 @@ export default {
     this.getMessages();
   },
   methods: {
+    messageDeleted(id) {
+      this.messages = this.messages.filter(function(value, index, arr) {
+        return value.id !=id;
+      });
+      console.log(id + "  deleted");
+    },
     getMessages() {
       this.$axios
         .get("/Message")

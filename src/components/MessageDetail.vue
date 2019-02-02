@@ -18,6 +18,7 @@
     </div>
     <div class="col-sm-1">
       <button
+        v-show="messageToOther" 
         @click="itemAction('reply', item)"
         data-toggle="tooltip"
         data-placement="right"
@@ -35,12 +36,12 @@
       </button>
     </div>
 
-      <div v-show="sendMessageVisible" class="offset-sm-6 col-sm-6">
-        <newmessage
-          v-bind:receivername="item.receiver"
-          v-bind:receiverid="item.recId"
-          v-on:messageSent="messageSent"
-        />
+    <div v-show="sendMessageVisible" class="offset-sm-6 col-sm-6">
+      <newmessage
+        v-bind:receivername="item.receiver"
+        v-bind:receiverid="item.recId"
+        v-on:messageSent="messageSent"
+      />
     </div>
     <div class="col-sm-12">
       <hr>
@@ -66,10 +67,17 @@ export default {
   components: {
     newmessage
   },
-  computed: {},
+  computed: {
+    userid() {
+      return this.$store.getters.id;
+    },
+    messageToOther(){
+      return this.userid == this.item.senderid;
+    }
+  },
   methods: {
     messageSent() {
-        this.sendMessageVisible = false;
+      this.sendMessageVisible = false;
     },
     itemAction(operation, item) {
       switch (operation) {
@@ -80,11 +88,11 @@ export default {
               title: "Silindi",
               text: "Mesajiniz silindi!"
             });
+             this.$emit("messageDeleted",item.id);
           });
           break;
         case "reply":
           this.sendMessageVisible = !this.sendMessageVisible;
-          console.log("reply");
           break;
       }
     },

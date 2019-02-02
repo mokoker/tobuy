@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
   state: {
     cats: [{ name: "initializing" }],
     status: '',
+    id:localStorage.getItem('id') || 0,
     token: localStorage.getItem('token') || '',
     user: localStorage.getItem('user') || {}
   },
@@ -19,8 +20,10 @@ export const store = new Vuex.Store({
       state.status = 'success'
       state.token = response.token
       state.user = response.userName
+      state.id = response.id
       localStorage.setItem('token', response.token)
       localStorage.setItem('user', response.userName)
+      localStorage.setItem('id', response.id)
     },
     auth_error(state) {
       state.status = 'error'
@@ -31,6 +34,7 @@ export const store = new Vuex.Store({
       state.user = ''
       localStorage.setItem('token', '')
       localStorage.setItem('user', '')
+      localStorage.setItem('id', '')
     },
     setcats(state, categories) {
       state.cats = categories;
@@ -43,6 +47,7 @@ export const store = new Vuex.Store({
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
     name: state => state.user,
+    id: state => state.id,
     categories: state => state.cats
   }
 

@@ -1,10 +1,10 @@
 <template>
   <li class="nav-item">
     <div :class="{bold: isFolder,selected: isSelected}">
-      <a class="nav-link">
+      <a class="nav-link"  @click="toggle">
         <i v-show="isSelected" class="arrow right"></i>
         <span v-on:click="getAds(model.id)">{{ model.name }}</span>
-        <span @click="toggle" v-if="isFolder">[{{ open ? '-' : '+' }}]</span>
+        <span v-if="isFolder">[{{ open ? '-' : '+' }}]</span>
       </a>
     </div>
     <ul v-show="open" v-if="isFolder">
@@ -34,6 +34,7 @@ export default {
   created() {
     this.$root.$on("selected", id => {
       if (id == this.model.id) {
+        console.log('emitted parent open');
         this.$emit("parentOpen");
         this.selected = true;
       } else {
@@ -62,6 +63,7 @@ export default {
     openx: function() {
       if (this.isFolder) {
         this.open = true;
+        this.$emit("parentOpen");
       }
     },
     toggle: function() {
@@ -115,7 +117,9 @@ i {
   display: inline-block;
   padding: 3px;
 }
-
+li{
+    font-size: 0.7rem;
+}
 .right {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
