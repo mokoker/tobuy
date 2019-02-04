@@ -142,11 +142,11 @@ a + a {
   text-align: center;
   color: #2c3e50;
   margin-top: 3rem;
+  margin-bottom: 5rem;
 }
 
 body {
   font-size: 0.875rem;
-  margin-bottom: 60px;
 }
 #routerContainer {
   padding: 20px;
@@ -161,11 +161,12 @@ html {
   height: 16px;
   vertical-align: text-bottom;
 }
-.footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0px;
-  left: 0px;
+footer {
+  padding: 0px;
+    width: 100%;
+    min-width: 110%;
+    position: relative;
+    bottom: 0;
   height: 35px; /* Set the fixed height of the footer here */
   line-height: 35px; /* Vertically center the text there */
   background-color: #f5f5f5;

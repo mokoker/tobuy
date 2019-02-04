@@ -12,7 +12,7 @@
       v-model="filterText"
       @keyup.enter="doFilter"
     >
-    <div id="navigation" class="col-lg-1 col-md-2 text-nowrap">
+    <div id="navigation" class="col-md-2 text-nowrap">
       <ul class="navbar-nav">
         <li class="nav-item" v-show="!isLoggedIn">
           <router-link class="navbar-login text-white" to="signin">Giris</router-link>

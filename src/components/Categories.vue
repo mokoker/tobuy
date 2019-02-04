@@ -82,13 +82,6 @@ export default {
 };
 </script>
 <style scoped>
-ul {
-  list-style-position: outside;
-  list-style-type: square;
-  text-transform: capitalize;
-  padding-left: 2em;
-  cursor: pointer;
-}
 a {
   text-align: left;
 }

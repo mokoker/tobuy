@@ -256,4 +256,7 @@ export default {
 .custom-actions button.ui.button > i.icon {
   margin: auto !important;
 }
+.table th{
+  padding: 0.25em;
+}
 </style>

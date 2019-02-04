@@ -54,17 +54,16 @@ export default {
 </script>
 
 <style scoped>
-/*
-   * Footer
-   */
 
-.footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0px;
-  left: 0px;
+footer {
+  
+    width: 100%;
+  position: fixed;
+bottom: 0px;
+left:0px;
   height: 35px; /* Set the fixed height of the footer here */
   line-height: 35px; /* Vertically center the text there */
   background-color: #f5f5f5;
 }
+
 </style>
