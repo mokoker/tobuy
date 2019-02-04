@@ -1,13 +1,11 @@
 <template>
   <div id="main" class="container-fluid">
     <filter-bar></filter-bar>
-    <div>
-      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
           <basecategory v-bind:cats="cats"/>
           <cities/>
         </div>
-      </nav>
     </div>
     <main role="main" id="routerContainer" class="col-md-10 ml-sm-auto col-lg-10 px-4">
       <router-view/>
@@ -53,21 +51,22 @@ export default {
     }
   },
   created: function() {
-    fetch("http://localhost:63419/api/Categories/1")
-      .then(res => res.json())
-      .then(data => {
-        this.$store.commit("setcats", data.children);
+    this.$axios
+      .get("/Categories/1")
+      .then(response => {
+        this.$store.commit("setcats", response.data.children);
       });
     this.$root.$emit("change", 1);
     var token = localStorage.getItem("token");
     if (token != "") {
       this.$axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     }
+    
   }
 };
 </script>
 
-<style>
+<style scoped>
 /*
    * Sidebar
    */
@@ -161,5 +160,19 @@ html {
   width: 16px;
   height: 16px;
   vertical-align: text-bottom;
+}
+.footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  height: 35px; /* Set the fixed height of the footer here */
+  line-height: 35px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+.leftItem{
+  margin:0 1em 3em 1em;
+  
 }
 </style>

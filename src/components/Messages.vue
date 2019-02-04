@@ -68,5 +68,11 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
+.messagestop {
+  text-align: left;
+}
+.header div {
+  font-weight: bold;
+}
 </style>

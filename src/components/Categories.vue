@@ -34,7 +34,6 @@ export default {
   created() {
     this.$root.$on("selected", id => {
       if (id == this.model.id) {
-        console.log('emitted parent open');
         this.$emit("parentOpen");
         this.selected = true;
       } else {
@@ -85,7 +84,7 @@ export default {
 <style scoped>
 ul {
   list-style-position: outside;
-  list-style-type: dot;
+  list-style-type: square;
   text-transform: capitalize;
   padding-left: 2em;
   cursor: pointer;

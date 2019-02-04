@@ -9,7 +9,7 @@
       id="tableContainer"
       ref="vuetable"
       detail-row-component="my-detail-row"
-      api-url="http://localhost:63419/api/X/SearchX"
+      :api-url="apiUrl"
       :fields="fields"
       pagination-path
       :http-options="httpOptions"
@@ -49,6 +49,7 @@ import Vue from "vue";
 import Vuetable from "vuetable-2";
 import { VuetablePagination, VuetablePaginationInfo } from "vuetable-2";
 import DetailRow from "./DetailRow";
+import * as config from "../config";
 
 Vue.component("my-detail-row", DetailRow);
 
@@ -58,6 +59,11 @@ export default {
     Vuetable,
     "vuetable-pagination": VuetablePagination,
     VuetablePaginationInfo
+  },
+  computed: {
+    apiUrl() {
+      return config.apiHost + "/X/SearchX";
+    }
   },
   props: {
     mymessages: false,
@@ -71,7 +77,7 @@ export default {
       firstload: true,
       httpOptions: {
         headers: {
-          Authorization: this.$axios.defaults.headers.common["Authorization"]
+          Authorization: this.$axios.defaults.headers.common["Authorization"]  !== undefined ? this.$axios.defaults.headers.common["Authorization"] : ''
         }
       },
       loading: true,
@@ -84,7 +90,7 @@ export default {
         {
           name: "posterName",
           title:
-            '<span class="orange glyphicon glyphicon-user"></span> Kullanici adi'
+            '<span class="orange glyphicon glyphicon-user"></span> Kullanici'
         },
         ,
         {
@@ -97,7 +103,7 @@ export default {
         },
         {
           name: "postDate",
-          title: "Ilan tarihi",
+          title: "Tarih",
           formatter(value) {
             return moment(String(value)).format("hh:mm DD/MM/YY");
           }
@@ -123,7 +129,7 @@ export default {
         },
         pagination: {
           infoClass: "pull-left",
-          wrapperClass: "vuetable-pagination pull-right",
+          wrapperClass: "pull-right",
           activeClass: "active large",
           disabledClass: "disabled",
           pageClass: "btn btn-border",
@@ -210,11 +216,10 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .orange.glyphicon {
   color: orange;
 }
-
 .table td {
   padding: 0.3rem;
 }

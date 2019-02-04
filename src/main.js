@@ -9,6 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee, faClock,faMinusCircle,faKeyboard ,faUserCircle, faEnvelope, faReply} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Notifications from 'vue-notification'
+import * as config from './config'
 require('jquery');
 require('bootstrap');
 require('bootstrap/dist/css/bootstrap.css');
@@ -24,12 +25,12 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 Vue.use(Notifications)
 const axiosConfig = {
-  baseURL: 'http://localhost:63419/api',
+  baseURL: config.apiHost,
   timeout: 30000,
 };
 
 Vue.prototype.$axios = axios.create(axiosConfig)
-Vue.store = Vue.prototype.store = { baseUrl: 'http://localhost:8080' };
+Vue.store = Vue.prototype.store = { baseUrl: config.client };
 
 const myMixin = {
   data() {

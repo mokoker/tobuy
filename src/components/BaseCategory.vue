@@ -1,6 +1,6 @@
 <template>
   <div id="leftMenu">
-    <div class="dropdown">
+    <div class="dropdown buysell" >
       <button
         class="btn btn-secondary btn-sm btn-xs dropdown-toggle"
         type="button"
@@ -15,9 +15,9 @@
       </div>
     </div>
     <ul id="categories">
-      <li v-for="x in cats">
+      <template v-for="x in cats">
         <categories v-bind:isleft="isleft" class="item" :model="x" v-on:myevent="doSomething"></categories>
-      </li>
+      </template>
     </ul>
   </div>
 </template>
@@ -97,40 +97,8 @@ export default {
 };
 </script>
 <style scoped>
-#leftMenu {
-  padding: 1em;
-}
-#categories {
-  margin: 10px;
-  min-height: 5em;
-}
-ul {
-  list-style-position: outside;
-  list-style-type: dot;
-  text-transform: capitalize;
-  padding-left: 2em;
-  cursor: pointer;
-}
-a {
-  text-align: left;
-}
-.nav-link {
-  padding: 0em;
-}
-/* Second Level */
-ul ul {
-  padding-left: 1em;
-}
-
-/* Third Level */
-ul ul ul {
-  padding-left: 2em;
-}
-.bold {
-  font-weight: bold;
-}
-.selected {
-  color: blue;
+.buysell{
+    margin:1em;
 }
 
 .btn-xs {

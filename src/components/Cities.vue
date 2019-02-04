@@ -166,7 +166,7 @@ export default {
   }
 };
 </script>
-<style >
+<style scoped >
 .leftItem{
   margin:0 1em 3em 1em;
   
