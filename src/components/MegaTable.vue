@@ -215,8 +215,7 @@ export default {
   }
 };
 </script>
-
-<style >
+<style  >
 .orange.glyphicon {
   color: orange;
 }
@@ -257,6 +256,9 @@ export default {
   margin: auto !important;
 }
 .table th{
-  padding: 0.25em;
+  padding: 0.25em !important;
+}
+.vuetable-th-gutter{
+  visibility: hidden;
 }
 </style>

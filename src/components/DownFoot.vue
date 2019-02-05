@@ -3,25 +3,25 @@
     <div class="container">
       <button
         type="button"
-        class="btn-sm btn-primary"
+        class="btn-sm btn-secondary"
         v-show="isLoggedIn"
         v-on:click="newPost"
       >Yeni Ilan Gonder</button>
       <button
         type="button"
-        class="btn-sm btn-info"
+        class="btn-sm btn-dark"
         v-show="isLoggedIn"
         v-on:click="mymessages"
       >Mesajlarim</button>
       <button
         type="button"
-        class="btn-sm btn-info"
+        class="btn-sm btn-dark"
         v-show="!isLoggedIn"
         v-on:click="login"
       >Giris Yap</button>
       <button
         type="button"
-        class="btn-sm btn-info"
+        class="btn-sm btn-dark"
         v-show="isLoggedIn"
         v-on:click="myposts"
       >Ilanlarim</button>
