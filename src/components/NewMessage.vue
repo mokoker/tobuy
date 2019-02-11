@@ -10,7 +10,7 @@
       placeholder="Mesajiniz"
     ></textarea>
     <div class="text-center">
-      <button type="button" class="btn-sm btn-primary center-block" v-on:click="sendMessage">Gonder</button>
+      <button type="button" class="btn-sm btn-info center-block" v-on:click="sendMessage">Gonder</button>
     </div>
   </div>
 </template>

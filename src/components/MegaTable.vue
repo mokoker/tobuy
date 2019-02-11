@@ -99,7 +99,11 @@ export default {
         },
         {
           name: "price",
-          title: "Fiyat"
+          title: "Fiyat",
+           formatter(value) {
+             if(value ==0)return 0;
+            return value +"TL";
+          }
         },
         {
           name: "postDate",
@@ -159,7 +163,6 @@ export default {
     search: {
       immediate: true,
       handler(val, oldVal) {
-        console.log(this);
         if (this.mymessages) return;
         var words = val.split("_");
         var objo = {};
@@ -177,9 +180,9 @@ export default {
     }
   },
   methods: {
-    formatDate(value) {
-      console.log(value);
-      return moment(String(value)).format("MM/DD/YY hh:mm");
+
+      formatMoney(value) {
+      return value + "TL";
     },
     onPaginationData(paginationData) {
       this.$refs.pagination.setPaginationData(paginationData);

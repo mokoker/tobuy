@@ -3,11 +3,11 @@
   <div class="col-sm-6 mx-auto">
     <div class="form-group">
       <label for="input">Password</label>
-      <input class="form-control" name="email"  type="password" id="inputPassword" v-model="password1" placeholder="Password">
+      <input class="form-control" name="email"  type="password" id="inputPassword1" v-model="password1" placeholder="Password">
     </div>
         <div class="form-group">
       <label for="input">Password Again</label>
-      <input class="form-control" name="email"  type="password" id="inputPassword" v-model="password2" placeholder="Password again">
+      <input class="form-control" name="email"  type="password" id="inputPassword2" v-model="password2" placeholder="Password again">
     </div>
        <button type="button" class="btn btn-primary" v-on:click="changePass">Sifremi Degistir</button>
   </div>
@@ -48,7 +48,7 @@ export default {
           this.password2="";
           return;
       }
-       if(this.this.password1.length<5)
+       if(this.password1.length<5)
       {
         this.$notify({
                     type: 'error',

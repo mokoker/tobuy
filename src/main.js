@@ -10,7 +10,7 @@ import { faCoffee, faClock,faMinusCircle,faKeyboard ,faUserCircle, faEnvelope, f
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import Notifications from 'vue-notification'
 import * as config from './config'
-global.jQuery = require('jquery');
+require('jquery');
 require('bootstrap');
 require('bootstrap/dist/css/bootstrap.css');
 library.add(faCoffee)
@@ -32,8 +32,6 @@ const axiosConfig = {
 Vue.prototype.$axios = axios.create(axiosConfig)
 Vue.store = Vue.prototype.store = { baseUrl: config.client };
 
-var $ = global.jQuery;
-window.$ = $;
 const myMixin = {
   data() {
     return {

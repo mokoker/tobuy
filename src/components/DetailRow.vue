@@ -17,11 +17,11 @@
       </div>
       <div class="inline field">
         <label>Fiyat:</label>
-        <span>{{rowData.price}}</span>
+        <span>{{formatMoney(rowData.price)}}</span>
       </div>
       <div class="inline field">
         <label>Gonderim Zamani:</label>
-        <span>{{rowData.postDate}}</span>
+        <span>{{formatDate(rowData.postDate)}}</span>
       </div>
       <div class="inline field">
         <label>Ilan Url:</label>
@@ -32,8 +32,8 @@
         <span>{{rowData.posterName}}</span>
         <button
           type="button"
-          class="btn-xs btn-primary"
-          v-show="this.isLoggedIn()"
+          class="btn-xs btn-info"
+          v-show="this.sendMessageButtonVisible()"
           v-on:click="sendMessageVisible =!sendMessageVisible"
         >MesajGonder</button>
       </div>
@@ -50,6 +50,7 @@
   <script>
 import newmessage from "./NewMessage";
 import Vue from "vue";
+import moment from "moment";
 export default {
   name: "detailrow",
   props: {
@@ -61,12 +62,28 @@ export default {
   components: {
     newmessage
   },
+  computed:{
+    id() {
+      return this.$store.getters.id;
+    }
+  },
   data: function() {
     return {
       sendMessageVisible: false
     };
   },
   methods: {
+       formatMoney(value) {
+      return value + " TL";
+    },
+      formatDate(value) {
+      return moment(String(value)).format("MM/DD/YY hh:mm");
+    },
+    sendMessageButtonVisible(){
+      console.log(this.id)
+      console.log(this.rowData.posterId)
+      return this.isLoggedIn && this.rowData.posterId != this.id;
+    },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
     },

@@ -30,7 +30,12 @@ export default {
       this.$axios
         .post("/User/ForgotPassword/"+ this.email)
         .then(response => {
-          console.log(response);     
+           this.$notify({
+                    type: 'info',
+                    group: "foo",
+                    title: "Mail",
+                    text: "Gerekli linki mail adresine mail attik"
+        }); 
           this.$router.push("/");
         })
         .catch(error => {

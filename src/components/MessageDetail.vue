@@ -103,10 +103,5 @@ export default {
 };
 </script>
 <style>
-.messagestop {
-  text-align: left;
-}
-.header div {
-  font-weight: bold;
-}
+
 </style>
