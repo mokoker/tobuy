@@ -4,7 +4,7 @@
       class="text-white navbar-brand d-none d-md-block col-sm-3 col-md-2 mr-0"
       v-on:click="reset()"
       to="/"
-    >karasayfa.com</a>
+    > karasayfa.com</a>
     <input
       class="form-control form-control-dark w-100"
       type="text"
@@ -12,7 +12,7 @@
       v-model="filterText"
       @keyup.enter="doFilter"
     >
-    <div id="navigation" class="col-md-2 text-nowrap">
+    <div id="navigation" class=" d-none d-md-block col-sm-3 col-md-2 mr-0 text-nowrap">
       <ul class="navbar-nav">
         <li class="nav-item" v-show="!isLoggedIn">
           <router-link class="navbar-login text-white" to="signin">Giris</router-link>
@@ -66,6 +66,16 @@ export default {
       this.$router.push("/");
     },
     doFilter() {
+      if(this.filterText.length<3)
+      {
+        this.$notify({
+                    type: 'info',
+                    group: "foo",
+                    title: "arama kriteri",
+                    text: "Arama kriteri 3 harf den az olamaz"
+        });
+       return;
+      }
       this.$root.strs["filter"] = this.filterText;
       this.$root.routeme();
       // console.log("doFilter:", this.filterText);

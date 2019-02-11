@@ -22,6 +22,12 @@
       <button
         type="button"
         class="btn-sm btn-dark"
+        v-show="!isLoggedIn"
+        v-on:click="signup"
+      >Uye Ol</button>
+      <button
+        type="button"
+        class="btn-sm btn-dark"
         v-show="isLoggedIn"
         v-on:click="myposts"
       >Ilanlarim</button>
@@ -34,6 +40,9 @@ export default {
   methods: {
     newPost() {
       this.$router.push("new");
+    },
+     signup() {
+      this.$router.push("signup");
     },
     login() {
       this.$router.push("signin");

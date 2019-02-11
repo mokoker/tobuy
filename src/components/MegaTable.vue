@@ -261,4 +261,8 @@ export default {
 .vuetable-th-gutter{
   visibility: hidden;
 }
+.active{
+  font-weight: bold;
+  background-color: lightgrey;
+}
 </style>

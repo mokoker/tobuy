@@ -48,6 +48,16 @@ export default {
           this.password2="";
           return;
       }
+       if(this.this.password1.length<5)
+      {
+        this.$notify({
+                    type: 'error',
+                    group: "foo",
+                    title: "Parola",
+                    text: "Parola 5 karakterden kisa olamaz"
+        });
+       return;
+      }
       var resetdto = { secret :this.secret,newpassword:this.password1 };
       this.$axios
         .patch("/User", resetdto)

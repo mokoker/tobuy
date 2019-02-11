@@ -54,7 +54,41 @@ export default {
   },
   name: "signup",
   methods: {
+    validateMail: function(mail) {
+     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(mail).toLowerCase());
+    },
     addUser: function() {
+      if(!this.validateMail(this.newUser.email))
+      {
+        this.$notify({
+                    type: 'error',
+                    group: "foo",
+                    title: "Yanlis mail adresi",
+                    text: "Mail adresi yanlis"
+        });
+       return;
+      }
+      if(this.newUser.userName.length<5)
+      {
+        this.$notify({
+                    type: 'error',
+                    group: "foo",
+                    title: "Kullanici adi",
+                    text: "Kullanici adi 5 karakterden kisa olamaz"
+        });
+       return;
+      }
+       if(this.newUser.password.length<5)
+      {
+        this.$notify({
+                    type: 'error',
+                    group: "foo",
+                    title: "Parola",
+                    text: "Parola 5 karakterden kisa olamaz"
+        });
+       return;
+      }
       this.$axios
         .post("/User/", this.newUser)
         .then(response => {
@@ -68,6 +102,12 @@ export default {
           switch (error.response.status) {
             case 409:
               this.errorMessage = "bu kullanici zaten mevcut";
+                 this.$notify({
+                    type: 'error',
+                    group: "foo",
+                    title: "Kullanici zaten mevcut",
+                    text: "Email veya kullanici adi kullaniliyor"
+        });
           }
         });
     }
