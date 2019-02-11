@@ -38,8 +38,8 @@
 
     <div v-show="sendMessageVisible" class="offset-sm-6 col-sm-6">
       <newmessage
-        v-bind:receivername="item.receiver"
-        v-bind:receiverid="item.recId"
+        v-bind:receivername="item.sender"
+        v-bind:receiverid="item.senId"
         v-on:messageSent="messageSent"
       />
     </div>
@@ -72,7 +72,7 @@ export default {
       return this.$store.getters.id;
     },
     messageToOther(){
-      return this.userid == this.item.senderid;
+      return this.userid != this.item.senId;
     }
   },
   methods: {
