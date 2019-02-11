@@ -7,8 +7,10 @@ import newitem from '@/components/NewItem'
 import messages from '@/components/Messages'
 import myposts from '@/components/MyPosts'
 import detail from '@/components/Detail'
+import forgotpass from '@/components/forgotPass'
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap';
+import resetpass from '@/components/resetpass'
 Vue.use(Router)
 
 export default new Router({
@@ -45,10 +47,21 @@ export default new Router({
       component: myposts,
     },
     {
+      path: '/forgotpass',
+      name: 'forgotpass',
+      component: forgotpass,
+    },
+    {
       path: '/d',
       name: 'Detail',
       component: detail,
       props :(route) =>({id:parseInt(route.query.id)})
+    },
+    {
+      path: '/reset',
+      name: 'Reset',
+      component: resetpass,
+      props :(route) =>({secret:route.query.secret})
     },
   ]
 })

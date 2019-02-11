@@ -8,7 +8,8 @@
       <label for="input">Password</label>
       <input class="form-control" name="email"  type="password" id="inputPassword" v-model="user.password" placeholder="Password">
     </div>
-    <button type="button" class="btn btn-primary" v-on:click="addUser">Giris Yap</button>
+       <button type="button" class="btn btn-primary" v-on:click="addUser">Giris Yap</button>
+       <button type="button" class="btn btn-primary" v-on:click="forgotPass">Sifremi Unuttum</button>
     <div v-show="this.errorMessage != ''" class="alert alert-warning" role="alert">{{errorMessage}}</div>
   </div>
 </template>
@@ -30,6 +31,9 @@ export default {
   },
   name: "signin",
   methods: {
+    forgotPass:function(){
+       this.$router.push("/forgotpass"); 
+    },
     addUser: function() {
       this.$axios
         .post("/User/Login", this.user)
@@ -44,6 +48,12 @@ export default {
           switch (error.response.status) {
             case 401: {
               this.errorMessage = "yanlis kullanici adi yada sifre";
+                 this.$notify({
+                    type: 'error',
+                    group: "foo",
+                    title: "Yanlis sifre",
+                    text: "Sifren yanlis unuttuysan sifirlayabilirsin!"
+              });
             }
           }
         });
