@@ -6,7 +6,7 @@
       :options="options"
       :multiple="multiple"
       :searchable="false"
-      :close-on-select="false"
+      :close-on-select="!multiple"
       :show-labels="false"
       label="name"
       track-by="name"
