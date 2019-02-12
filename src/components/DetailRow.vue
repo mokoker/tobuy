@@ -3,7 +3,7 @@
     <div class="col-xs-12 col-sm-12 col-lg-8">
       <div class="inline field">
         <label>Ilan Basligi:</label>
-        <span>{{rowData.title}}</span>
+        <span>{{buysell}}  {{rowData.title}}</span>
       </div>
       <div class="inline field">
         <label>Ilan Detayi:</label>
@@ -65,6 +65,9 @@ export default {
   computed:{
     id() {
       return this.$store.getters.id;
+    },
+    buysell(){
+      return this.rowData.toSell ? "Satilik":"Alinik";
     }
   },
   data: function() {
