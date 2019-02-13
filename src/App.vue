@@ -176,4 +176,8 @@ footer {
   margin:0 1em 3em 1em;
   
 }
+.table td {
+  padding: 0.3rem;
+}
+
 </style>

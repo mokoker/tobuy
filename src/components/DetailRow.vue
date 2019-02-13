@@ -85,7 +85,8 @@ export default {
     sendMessageButtonVisible(){
       console.log(this.id)
       console.log(this.rowData.posterId)
-      return this.isLoggedIn && this.rowData.posterId != this.id;
+      console.log(this.isLoggedIn);
+      return this.isLoggedIn() && this.rowData.posterId != this.id;
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
@@ -116,5 +117,8 @@ a {
 
 a:hover {
   cursor: pointer;
+}
+.table td {
+  padding: 0.3rem;
 }
 </style>

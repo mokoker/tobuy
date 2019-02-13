@@ -82,24 +82,31 @@ export default {
       },
       loading: true,
       fields: [
+          {
+          name: "toSell",
+          title: '<i class="fa fa-shower" aria-hidden="true"></i>',
+              formatter(value) {
+             if(value ==true)return '<b class="tooltipx" style=" color: #47a563;">s<span class="tooltiptext">satilik</span></b>';
+            return '<b class="tooltipx" style=" color: #a01e29;">a<span class="tooltiptext">alinik</span></b>';
+          }
+        },
         {
           name: "title",
-          title: "Baslik"
+          title:'<span class="fa fa-check"><b>Baslik</b></span> '
         },
         ,
         {
           name: "posterName",
-          title:
-            '<span class="orange glyphicon glyphicon-user"></span> Kullanici'
+          title: '<span class="fa fa-user"><b>Kullanici</b></span> '
         },
         ,
         {
           name: "cityName",
-          title: "Sehir"
+          title:  '<span class="fa fa-map-marker"><b>Sehir</b></span> '
         },
         {
           name: "price",
-          title: "Fiyat",
+          title:  '<span class="fa fa-try"><b>Fiyat</b></span> ',
            formatter(value) {
              if(value ==0)return 0;
             return value +"TL";
@@ -107,7 +114,7 @@ export default {
         },
         {
           name: "postDate",
-          title: "Tarih",
+          title:  '<span class="fa fa-calendar"><b>Tarih</b></span> ',
           formatter(value) {
             return moment(String(value)).format("hh:mm DD/MM/YY");
           }
@@ -180,10 +187,6 @@ export default {
     }
   },
   methods: {
-
-      formatMoney(value) {
-      return value + "TL";
-    },
     onPaginationData(paginationData) {
       this.$refs.pagination.setPaginationData(paginationData);
     },
@@ -218,12 +221,9 @@ export default {
   }
 };
 </script>
-<style  >
-.orange.glyphicon {
-  color: orange;
-}
+<style>
 .table td {
-  padding: 0.3rem;
+  padding: 0.3rem !important;
 }
 #tableContainer {
   text-align: left;
@@ -267,5 +267,45 @@ export default {
 .active{
   font-weight: bold;
   background-color: lightgrey;
+}
+
+.vuetable th#_posterName {
+     width: 8em;
+}
+ 
+.vuetable th#_cityName {
+     width: 6em;
+}
+ 
+.vuetable th#_postDate {
+     width: 8em;
+}
+.vuetable th#_price {
+     width: 5em;
+}
+.vuetable th#_toSell {
+     width: 1em;
+}
+b{
+  font-weight: bold;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+}
+
+/* Tooltip text */
+.tooltipx .tooltiptext {
+  visibility: hidden;
+  width: 60px;
+  background-color: #6c757d;
+  color: rgb(243, 243, 243);
+  text-align: center;
+  padding: 1px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipx:hover .tooltiptext {
+  visibility: visible;
 }
 </style>

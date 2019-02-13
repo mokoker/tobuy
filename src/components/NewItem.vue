@@ -117,7 +117,7 @@ export default {
             title: "Gonderildi",
             text: "Ilaniniz gonderildi"
           });
-          this.$root.clearpath();
+            this.$router.push('/my')
         })
         .catch(error => {
           switch (error.response.status) {
