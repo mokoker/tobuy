@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { stat } from 'fs';
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
 
   state: {
-    cats: [{ name: "initializing" }],
+    cats: localStorage.getItem('cats'),
     status: '',
     id:localStorage.getItem('id') || 0,
     token: localStorage.getItem('token') || '',
@@ -37,18 +38,35 @@ export const store = new Vuex.Store({
       localStorage.setItem('id', '')
     },
     setcats(state, categories) {
-      state.cats = categories;
+      state.cats =  JSON.stringify(categories);
+      localStorage.setItem('cats', state.cats);
     }
   },
   actions: {
-
+  
   },
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
     name: state => state.user,
     id: state => state.id,
-    categories: state => state.cats
+    categories: state =>{ 
+      console.log(state.cats)
+      try{
+        if(state.cats != undefined)
+        {
+      return JSON.parse(state.cats);
+      }
+      else
+      {
+        return null;
+      }
+    }
+      catch(err){
+        console.log(err)
+        return null;
+      }
+    }
   }
 
 })

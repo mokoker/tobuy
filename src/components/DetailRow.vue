@@ -34,7 +34,7 @@
           type="button"
           class="btn-xs btn-info"
           v-show="this.sendMessageButtonVisible()"
-          v-on:click="sendMessageVisible =!sendMessageVisible"
+          v-on:click="sendMessageClicked"
         >MesajGonder</button>
       </div>
       <newmessage
@@ -83,10 +83,7 @@ export default {
       return moment(String(value)).format("MM/DD/YY hh:mm");
     },
     sendMessageButtonVisible(){
-      console.log(this.id)
-      console.log(this.rowData.posterId)
-      console.log(this.isLoggedIn);
-      return this.isLoggedIn() && this.rowData.posterId != this.id;
+      return  this.rowData.posterId != this.id;
     },
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
@@ -95,8 +92,25 @@ export default {
     getDetailUrl() {
       return Vue.store.baseUrl + "/#/d?id=" + this.rowData.id;
     },
+
     messageSent(){
       this.sendMessageVisible= false;
+    },
+    sendMessageClicked(){
+      if(this.isLoggedIn())
+      {
+        sendMessageVisible =!sendMessageVisible;
+      }
+      else
+      {
+         this.$notify({
+          type: "info",
+          group: "foo",
+          title: "Mesaj gonderebilmek icin giris yapmalisin",
+          text: "Mesaj gonderebilmek icin giris yapmalisin, bir hesabin yoksa 10s de yeni bir hesap acabilirsin."
+        });
+         this.$router.push("/signin");
+      }
     }
 
   }
@@ -118,7 +132,5 @@ a {
 a:hover {
   cursor: pointer;
 }
-.table td {
-  padding: 0.3rem;
-}
+
 </style>

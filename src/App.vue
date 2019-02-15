@@ -51,11 +51,15 @@ export default {
     }
   },
   created: function() {
+    if(this.cats== null)
+    {
+      console.log('getting cats');
     this.$axios
       .get("/Categories/1")
       .then(response => {
         this.$store.commit("setcats", response.data.children);
       });
+    }
     this.$root.$emit("change", 1);
     var token = localStorage.getItem("token");
     if (token != "") {
@@ -176,8 +180,4 @@ footer {
   margin:0 1em 3em 1em;
   
 }
-.table td {
-  padding: 0.3rem;
-}
-
 </style>

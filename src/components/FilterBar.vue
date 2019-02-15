@@ -16,7 +16,7 @@
       <ul class="navbar-nav">
         <li class="nav-item" v-show="!isLoggedIn">
           <router-link class="navbar-login text-white" to="signin">Giris</router-link>
-          <router-link class="navbar-login text-white" to="signup">Uye Ol</router-link>
+          <router-link class="navbar-login text-white" to="signup">&nbsp;Uye Ol</router-link>
         </li>
       </ul>
       <a class="text-white" v-show="isLoggedIn" v-on:click="signOut()">Cikis yap {{name}}</a>
@@ -66,7 +66,7 @@ export default {
       this.$router.push("/");
     },
     doFilter() {
-      if(this.filterText.length<3)
+      if(this.filterText.length<3 && this.filterText.length >0 )
       {
         this.$notify({
                     type: 'info',
